@@ -501,16 +501,19 @@ const SingleMenu = () => {
         <a href="#home">Home</a>
       </li>
       <li>
-        <a href="#about">PLAY</a>
+        <a href="#about">about</a>
       </li>
       <li>
-        <a href="#services">Whitepapper</a>
+        <a href="#services">services</a>
       </li>
       <li>
-        <a href="#projects">How to Play</a>
+        <a href="#projects">project</a>
       </li>
       <li>
-        <a href="#pricing">Poadmap</a>
+        <a href="#pricing">pricing</a>
+      </li>
+      <li>
+        <a href="#news">news</a>
       </li>
     </ul>
   );

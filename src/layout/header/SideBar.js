@@ -9,7 +9,7 @@ const SideBar = () => {
             <span className="fa fa-times" />
           </div>
           <div className="title">
-            <h4>Contact Us</h4>
+            <h4>Get Appointment</h4>
           </div>
           {/*Appointment Form*/}
           <div className="appointment-form">
@@ -48,10 +48,13 @@ const SideBar = () => {
               <i className="fab fa-twitter" />
             </a>
             <a href="#">
-              <i className="fab fa-telegram" />
+              <i className="fab fa-facebook-f" />
             </a>
             <a href="#">
-              <i className="fas fa-envelope" />
+              <i className="fab fa-instagram" />
+            </a>
+            <a href="#">
+              <i className="fab fa-pinterest-p" />
             </a>
           </div>
         </div>
