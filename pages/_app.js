@@ -55,8 +55,13 @@ export default function App({ Component, pageProps }) {
         <link rel="stylesheet" href="assets/css/animate.min.css" />
         {/* Slick */}
         <link rel="stylesheet" href="assets/css/slick.min.css" />
+        {/* 星空 */}
+        <link rel="stylesheet" href="assets/css/ParticlesComponent.css" />
         {/* Main Style */}
         <link rel="stylesheet" href="assets/css/style.css" />
+        {/* 星空背景 */}
+        {/* <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> */}
+        <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
       </Head>
       {!loaded && <PreLoader />}
       {loaded && <Component {...pageProps} />}

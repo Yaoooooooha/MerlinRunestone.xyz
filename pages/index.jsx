@@ -4,6 +4,9 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+const Runestone3D = dynamic(() => import("@/src/components/Runestone3D"), {
+  ssr: false,
+});
 const Counter = dynamic(() => import("@/src/components/Counter"), {
   ssr: false,
 });
@@ -13,12 +16,13 @@ const IndexSingle = () => {
     <Layout singleMenu dark>
       {/* Hero Section Start */}
       <section id="home" className="hero-area pt-185 rpt-150 rel z-1">
+        <Runestone3D />
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
               <div className="hero-content wow fadeInLeft delay-0-2s">
                 <h1>
-                  Web <span>Design</span> <i>Agency</i>
+                  <span>Merlin</span> <i className="theme-color">Runestone</i>
                 </h1>
               </div>
             </div>
@@ -31,7 +35,7 @@ const IndexSingle = () => {
         </div>
         <div className="container-fluid">
           <div className="hero-bottom-image">
-            <img src="assets/images/hero/hero.jpg" alt="Hero" />
+            <img src="assets/images/hero/merlin-main-pic.jpg" alt="Hero" />
             <div className="hero-social">
               <a href="#">
                 <i className="fab fa-facebook-f" /> <span>Facebook</span>

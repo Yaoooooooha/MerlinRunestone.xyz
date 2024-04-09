@@ -6,6 +6,8 @@ import ScrollTop from "./ScrollTop";
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import SideBar from "./header/SideBar";
+import ParticlesComponent from "../components/ParticlesComponents";
+
 const Layout = ({ children, header, footer, singleMenu, dark }) => {
   useEffect(() => {
     animation();
@@ -17,6 +19,7 @@ const Layout = ({ children, header, footer, singleMenu, dark }) => {
       <VideoPopup />
       <ImageView />
       <div className="page-wrapper">
+        <ParticlesComponent />
         <Header header={header} singleMenu={singleMenu} dark={dark} />
         <SideBar />
         {children}
