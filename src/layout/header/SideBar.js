@@ -9,7 +9,7 @@ const SideBar = () => {
             <span className="fa fa-times" />
           </div>
           <div className="title">
-            <h4>Get Appointment</h4>
+            <h4>Contact Us</h4>
           </div>
           {/*Appointment Form*/}
           <div className="appointment-form">
@@ -37,7 +37,7 @@ const SideBar = () => {
               </div>
               <div className="form-group">
                 <button type="submit" className="theme-btn">
-                  Submit now
+                  Send
                 </button>
               </div>
             </form>
@@ -45,16 +45,13 @@ const SideBar = () => {
           {/*Social Icons*/}
           <div className="social-style-one">
             <a href="#">
-              <i className="fab fa-twitter" />
+              <i className="fab fa-x-twitter" />
             </a>
             <a href="#">
-              <i className="fab fa-facebook-f" />
+              <i className="fa-regular fa-paper-plane" />
             </a>
             <a href="#">
-              <i className="fab fa-instagram" />
-            </a>
-            <a href="#">
-              <i className="fab fa-pinterest-p" />
+              <i className="fa-regular fa-envelope" />
             </a>
           </div>
         </div>

@@ -4973,18 +4973,18 @@ h6,
 }
 @media only screen and (max-width: 767px) {
   .hero-content h1 {
-    font-size: 85px;
+    font-size: 75px;
     margin-bottom: -30px;
   }
 }
 @media only screen and (max-width: 479px) {
   .hero-content h1 {
-    font-size: 70px;
+    font-size: 60px;
   }
 }
 @media only screen and (max-width: 375px) {
   .hero-content h1 {
-    font-size: 50px;
+    font-size: 40px;
     max-width: 250px;
   }
 }
@@ -5032,11 +5032,15 @@ h6,
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
+  top:100px;
+  z-index: 5;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: distribute;
   justify-content: space-around;
+  height: 400px;
 }
 @media only screen and (max-width: 1199px) {
   .hero-social {
@@ -5067,6 +5071,7 @@ h6,
   .hero-social a span {
     display: none;
   }
+  .hero-social {height: auto;}
 }
 
 /* Hero Area Two */
@@ -12297,4 +12302,34 @@ blockquote .blockquote-footer:before {
 
 .theme-color {
   color: var(--ygency-primary-color);
+}
+
+/*******************************************************/
+/******************* ## Runestone **********************/
+/*******************************************************/
+.runestone-model {
+  position: absolute;
+  z-index: 3;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media only screen and (max-width: 991px) {
+  .runestone-model {
+    top: 45%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .runestone-h1 {
+    margin-left: -137px;
+  }
+  }
+
+@media only screen and (max-width: 1400px) {
+.runestone-h1 {
+  margin-left: 0px;
+  margin-top: 15px;
+}
 }

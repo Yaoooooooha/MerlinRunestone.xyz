@@ -75,19 +75,7 @@ const Runestone3D = () => {
     };
   }, []);
 
-  return (
-    <div
-      className="3D Model"
-      ref={mountRef}
-      style={{
-        position: "absolute",
-        zIndex: "3",
-        top: "70%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    />
-  );
+  return <div className="runestone-model" ref={mountRef} />;
 };
 
 export default Runestone3D;

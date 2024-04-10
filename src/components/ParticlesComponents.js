@@ -7,7 +7,7 @@ const ParticlesComponent = () => {
       window.particlesJS("particles-js", {
         particles: {
           number: {
-            value: 250,
+            value: 200,
             density: {
               enable: true,
               value_area: 800,
@@ -37,9 +37,9 @@ const ParticlesComponent = () => {
           },
           modes: {
             grab: {
-              distance: 100,
+              distance: 0,
               line_linked: {
-                opacity: 0.9,
+                opacity: 0.5,
               },
             },
           },
@@ -55,8 +55,20 @@ const ParticlesComponent = () => {
       window.addEventListener("particlesJSLoaded", initParticlesJS);
     }
 
+    // 鼠標遮罩
+    const handleMouseMove = (event) => {
+      const mask = document.getElementById("mouse-mask");
+      const x = event.pageX;
+      const y = event.pageY;
+      mask.style.left = `${x}px`;
+      mask.style.top = `${y}px`;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
     return () => {
       window.removeEventListener("particlesJSLoaded", initParticlesJS);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -72,12 +84,25 @@ const ParticlesComponent = () => {
       />
       <div
         id="particles-js"
-        style={{ position: "fixed", width: "100vw", height: "100vh" }}
+        style={{ position: "absolute", width: "100vw", height: "100vh" }}
       ></div>
       {/* 注意确保容器有明确的尺寸 */}
       <div className="count-particles">
         <span className="js-count-particles"></span>
       </div>
+      <div
+        id="mouse-mask"
+        style={{
+          position: "absolute",
+          transform: "translate(-50%,-50%)",
+          width: "200px", // 遮罩的大小
+          height: "200px",
+          borderRadius: "50%", // 圆形遮罩
+          backgroundColor: "#000000", // 遮罩的颜色
+          pointerEvents: "none", // 确保遮罩不会阻止下面元素的事件
+          zIndex: 1, // 确保遮罩在最顶层
+        }}
+      ></div>
     </div>
   );
 };

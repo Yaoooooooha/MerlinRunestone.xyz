@@ -45,6 +45,10 @@ export default function App({ Component, pageProps }) {
         <link rel="stylesheet" href="assets/css/flaticon.min.css" />
         {/* Font Awesome */}
         <link rel="stylesheet" href="assets/css/fontawesome-5.14.0.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        />
         {/* Bootstrap */}
         <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
         {/* Magnific Popup */}

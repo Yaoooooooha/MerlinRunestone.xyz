@@ -15,39 +15,32 @@ const IndexSingle = () => {
   return (
     <Layout singleMenu dark>
       {/* Hero Section Start */}
-      <section id="home" className="hero-area pt-185 rpt-150 rel z-1">
+      <section id="home" className="hero-area pt-135 rpt-100 rel z-1">
         <Runestone3D />
         <div className="container">
           <div className="row">
-            <div className="col-lg-8">
+            <div className="col-lg-12">
               <div className="hero-content wow fadeInLeft delay-0-2s">
                 <h1>
-                  <span>Merlin</span> <i className="theme-color">Runestone</i>
+                  <span>Merlin</span>{" "}
+                  <i className="theme-color runestone-h1">Runestone</i>
                 </h1>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="hero-right-image mt-20 wow fadeInUp delay-0-4s">
-                {/* <img src="assets/images/hero/hero-right.png" alt="Hero" /> */}
               </div>
             </div>
           </div>
         </div>
         <div className="container-fluid">
           <div className="hero-bottom-image">
-            {/* <img src="assets/images/hero/merlin-main-pic.jpg" alt="Hero" /> */}
             <div className="hero-social">
               <a href="#">
-                <i className="fab fa-facebook-f" /> <span>Facebook</span>
+                <i className="fab fa-x-twitter" /> <span>Twitter</span>
               </a>
               <a href="#">
-                <i className="fab fa-twitter" /> <span>Twitter</span>
+                <i className="fa-regular fa-paper-plane" />{" "}
+                <span>Telegram</span>
               </a>
               <a href="#">
-                <i className="fab fa-dribbble" /> <span>Dribbble</span>
-              </a>
-              <a href="#">
-                <i className="fab fa-behance" /> <span>Behance</span>
+                <i className="fa-regular fa-envelope" /> <span>Email</span>
               </a>
             </div>
           </div>

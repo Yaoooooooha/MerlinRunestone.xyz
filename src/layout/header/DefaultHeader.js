@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Nav from "./Nav";
-import NavSearch from "./NavSearch";
-
-const DefaultHeader = ({ singleMenu, dark }) => {
+const Header2 = ({ singleMenu, dark }) => {
   return (
     <header className="main-header menu-absolute">
       {/*Header-Upper*/}
@@ -31,14 +29,20 @@ const DefaultHeader = ({ singleMenu, dark }) => {
               <Nav singleMenu={singleMenu} />
               {/* Main Menu End*/}
             </div>
-            {/* Nav Search */}
-            <NavSearch />
             {/* Menu Button */}
-            <div className="menu-btns">
+            <div className="menu-btns ms-lg-auto">
+              <Link legacyBehavior href="#">
+                <a className="theme-btn style-two me-4">
+                  GET RUNESTONE <i className="fa fa-arrow-right" />
+                </a>
+              </Link>
               {/* menu sidbar */}
               <div className="menu-sidebar">
-                <button>
-                  <img src="assets/images/icons/toggler.svg" alt="Toggler" />
+                <button className="bg-transparent">
+                  <img
+                    src="assets/images/icons/toggler-white.svg"
+                    alt="Toggler"
+                  />
                 </button>
               </div>
             </div>
@@ -49,4 +53,4 @@ const DefaultHeader = ({ singleMenu, dark }) => {
     </header>
   );
 };
-export default DefaultHeader;
+export default Header2;
