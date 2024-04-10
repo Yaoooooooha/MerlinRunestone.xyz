@@ -15,60 +15,70 @@ const IndexSingle = () => {
   return (
     <Layout singleMenu dark>
       {/* Hero Section Start */}
-      <section id="home" className="hero-area pt-135 rpt-100 rel z-1">
+      <section
+        id="home"
+        className="hero-area pt-100 rpt-65 pb-100 rpb-65 rel z-1"
+        style={{ height: "100vh" }}
+      >
         <Runestone3D />
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="hero-content wow fadeInLeft delay-0-2s">
-                <h1>
-                  <span>Merlin</span>{" "}
-                  <i className="theme-color runestone-h1">Runestone</i>
-                </h1>
-              </div>
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "85vh",
+          }}
+        >
+          <div className="col-lg-12">
+            <div className="hero-content wow fadeInLeft delay-0-2s">
+              <h1>
+                <span>Merlin</span>{" "}
+                <i className="theme-color runestone-h1">Runestone</i>
+              </h1>
+            </div>
+          </div>
+          <div className="col-lg-12 mt-20 mb-20">
+            <div className="theme-btn style-two me-4 wow fadeInLeft delay-0-2s">
+              <Link href={"#"}>REGISTER FOR EARLY ACCESS !!</Link>
             </div>
           </div>
         </div>
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <div className="hero-bottom-image">
             <div className="hero-social">
-              <a href="#">
-                <i className="fab fa-x-twitter" /> <span>Twitter</span>
+              <a href="#" target="_blank">
+                <i className="fa-regular fa-envelope" /> <span>Email</span>
               </a>
-              <a href="#">
+              <a href="#" target="_blank">
                 <i className="fa-regular fa-paper-plane" />{" "}
                 <span>Telegram</span>
               </a>
-              <a href="#">
-                <i className="fa-regular fa-envelope" /> <span>Email</span>
+              <a href="#" target="_blank">
+                <i className="fab fa-x-twitter" /> <span>Twitter</span>
               </a>
             </div>
           </div>
-        </div>
-        <div className="hero-bg">
+        </div> */}
+        {/* <div className="hero-bg">
           <img src="assets/images/hero/hero-bg.png" alt="lines" />
-        </div>
+        </div> */}
       </section>
       {/* Hero Section End */}
       {/* About Us Area start */}
-      <section id="about" className="about-area pt-130 rpt-100 rel z-1">
+      <section id="about" className="about-area pt-100 rpt-100 rel z-1">
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-xl-5 col-lg-3">
               <div className="about-image rmb-45 wow fadeInUp delay-0-2s">
-                <img
-                  src="assets/images/about/circle-text.svg"
-                  alt="Circle Text"
-                />
+                <img src="assets/images/about/bitcoin.png" alt="Bitcoin" />
               </div>
             </div>
             <div className="col-xl-7 col-lg-9">
               <div className="about-content wow fadeInUp delay-0-4s">
                 <div className="section-title mb-40">
-                  <span className="sub-title mb-15">About Company</span>
-                  <h2>
-                    Our Main Goal to Satisficed Local &amp; Global Clients
-                  </h2>
+                  <span className="sub-title mb-15">Merlin RUNESTONE</span>
+                  <h2>111 unique RUNESTONE</h2>
                 </div>
                 <div className="content">
                   <p>
@@ -77,9 +87,14 @@ const IndexSingle = () => {
                     eaque quae abillo inventore veritatisey et quasi architecto
                     beatae vitae dictasunt explicabo voluptatem.
                   </p>
-                  <Link legacyBehavior href="/about">
-                    <a className="read-more mt-10">
-                      Read More <i className="far fa-arrow-right" />
+                  <Link legacyBehavior href="#">
+                    <a className="theme-btn style-two me-4">
+                      Learn More <i className="fa fa-arrow-right" />
+                    </a>
+                  </Link>
+                  <Link legacyBehavior href="#">
+                    <a className="theme-btn style-two me-4">
+                      GET RUNESTONE <i className="fa fa-arrow-right" />
                     </a>
                   </Link>
                 </div>
@@ -94,38 +109,32 @@ const IndexSingle = () => {
         <div className="container-fluid">
           <div className="headline-text marquee">
             <span>
-              Web <span>Design</span> Agency
+              <span>Merlin</span> RUNESTONE
             </span>
           </div>
         </div>
       </div>
       {/* Headline Area end */}
       {/* What We Do start */}
-      <section className="what-we-do-area pt-90 rpt-80 rel z-1">
+      <section id="faq" className="what-we-do-area pt-90 rpt-80 rel z-1">
         <div className="container">
           <div className="row justify-content-between">
-            <div className="col-xl-5 col-lg-8">
+            <div className="col-xl-6 col-lg-8">
               <div className="what-we-do-content mb-55">
                 <div className="section-title mb-60 wow fadeInUp delay-0-2s">
-                  <span className="sub-title mb-15">What We Do</span>
-                  <h2>Latest Way to Get Web Solutions &amp; Business Growth</h2>
+                  <span className="sub-title mb-15">Why Merlin Runestone?</span>
+                  <h2>All RUNESTONE Belongs to Merlin</h2>
                 </div>
                 <div className="what-we-do-item wow fadeInUp delay-0-3s">
                   <div className="number">
                     <span>01</span>
                   </div>
                   <div className="content">
-                    <h5>Mobile Solutions</h5>
+                    <h5>Should I Get One?</h5>
                     <p>
                       Sed ut perspiciatis unde omnis natus error voluptatem
                       accusantium doloremque
                     </p>
-                    <Link legacyBehavior href="/service-details">
-                      <a className="read-more style-two">
-                        <span>Read More</span>{" "}
-                        <i className="far fa-arrow-right" />
-                      </a>
-                    </Link>
                   </div>
                 </div>
                 <div className="what-we-do-item wow fadeInUp delay-0-5s">
@@ -133,17 +142,11 @@ const IndexSingle = () => {
                     <span>02</span>
                   </div>
                   <div className="content">
-                    <h5>Web Solutions</h5>
+                    <h5>What's the Utility?</h5>
                     <p>
                       Quis autem veleum iure reprehe nderitecy quie voluptate
                       velit esse quam nihile
                     </p>
-                    <Link legacyBehavior href="/service-details">
-                      <a className="read-more style-two">
-                        <span>Read More</span>{" "}
-                        <i className="far fa-arrow-right" />
-                      </a>
-                    </Link>
                   </div>
                 </div>
                 <div className="what-we-do-item wow fadeInUp delay-0-7s">
@@ -151,25 +154,26 @@ const IndexSingle = () => {
                     <span>03</span>
                   </div>
                   <div className="content">
-                    <h5>Custome Solutions</h5>
+                    <h5>Roadmap?</h5>
                     <p>
                       We denounce with righteous indignation and dislike
                       beguiled demoralized charms
                     </p>
-                    <Link legacyBehavior href="/service-details">
-                      <a className="read-more style-two">
-                        <span>Read More</span>{" "}
-                        <i className="far fa-arrow-right" />
-                      </a>
-                    </Link>
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-xl-6">
-              <div className="what-we-do-image mb-55 wow fadeInRight delay-0-2s">
+              <div
+                className="what-we-do-image mb-55 wow fadeInRight delay-0-2s"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <img
-                  src="assets/images/services/what-we-do.jpg"
+                  src="assets/images/faqs/merlin-main-pic.jpg"
                   alt="What We Do"
                 />
               </div>

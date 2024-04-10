@@ -4955,20 +4955,19 @@ h6,
 
 .hero-content h1 {
   line-height: 1;
-  font-size: 180px;
+  font-size: 130px;
   font-weight: 700;
   position: relative;
-  margin-bottom: -85px;
   text-transform: uppercase;
 }
 @media only screen and (max-width: 1399px) {
   .hero-content h1 {
-    font-size: 150px;
+    font-size: 100px;
   }
 }
 @media only screen and (max-width: 991px) {
   .hero-content h1 {
-    font-size: 115px;
+    font-size: 95px;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -5033,7 +5032,7 @@ h6,
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  top:100px;
+  top: 100px;
   z-index: 5;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -5071,7 +5070,9 @@ h6,
   .hero-social a span {
     display: none;
   }
-  .hero-social {height: auto;}
+  .hero-social {
+    height: auto;
+  }
 }
 
 /* Hero Area Two */
@@ -6353,6 +6354,7 @@ h6,
   display: inline-block;
   -webkit-animation: rotated_circle 30s infinite;
   animation: rotated_circle 30s infinite;
+  max-width: 300px;
 }
 
 .text-left-border {
@@ -10427,7 +10429,6 @@ blockquote .blockquote-footer:before {
 /*******************************************************/
 /* What We Do */
 .what-we-do-item {
-  padding-bottom: 35px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 @media only screen and (min-width: 376px) {
@@ -12286,22 +12287,11 @@ blockquote .blockquote-footer:before {
 }
 
 /*******************************************************/
-/******************* ## Particles **********************/
-/*******************************************************/
-
-#particles-js {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: -1;
-}
-
-/*******************************************************/
 /****************** ## Theme Color *********************/
 /*******************************************************/
 
 .theme-color {
-  color: var(--ygency-primary-color);
+  color: linear-gradient(to right, #322dc8, #a161ff);
 }
 
 /*******************************************************/
@@ -12310,9 +12300,9 @@ blockquote .blockquote-footer:before {
 .runestone-model {
   position: absolute;
   z-index: 3;
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 10%;
+  right: -30%;
+  /* transform: translateX(-50%); */
 }
 
 @media only screen and (max-width: 991px) {
@@ -12321,15 +12311,16 @@ blockquote .blockquote-footer:before {
   }
 }
 
-@media only screen and (min-width: 1400px) {
-  .runestone-h1 {
-    margin-left: -137px;
+@media only screen and (min-width: 1200px) {
+  .what-we-do-content,
+  .what-we-do-image {
+    height: 90vh;
   }
-  }
+}
 
-@media only screen and (max-width: 1400px) {
+/* @media only screen and (max-width: 1400px) {
 .runestone-h1 {
   margin-left: 0px;
   margin-top: 15px;
 }
-}
+} */

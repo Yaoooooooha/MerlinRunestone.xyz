@@ -84,7 +84,12 @@ const ParticlesComponent = () => {
       />
       <div
         id="particles-js"
-        style={{ position: "absolute", width: "100vw", height: "100vh" }}
+        style={{
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+          zIndex: "-1",
+        }}
       ></div>
       {/* 注意确保容器有明确的尺寸 */}
       <div className="count-particles">
