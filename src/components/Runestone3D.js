@@ -9,8 +9,9 @@ const Runestone3D = () => {
   useEffect(() => {
     // 場景
     const scene = new THREE.Scene();
-    const light = new THREE.AmbientLight(0xffffff);
-    scene.add(light); // 添加光線
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10); // 添加光線 (顏色, 強度)
+    directionalLight.position.set(10, 3, -5); // 設置光源位置
+    scene.add(directionalLight);
     // 相機
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -31,8 +32,16 @@ const Runestone3D = () => {
 
     // 加载模型
     loader.load(
-      "assets/images/hero/rune_test.glb",
+      "assets/images/hero/runestone.glb",
       (gltf) => {
+        // Traverse the scene
+        gltf.scene.traverse((child) => {
+          if (child.isMesh) {
+            // Check if the object is a mesh
+            // Set the additive blending mode
+            child.material.blending = THREE.AdditiveBlending;
+          }
+        });
         scene.add(gltf.scene);
         model = gltf.scene;
         model.scale.set(0.8, 0.8, 0.8);
