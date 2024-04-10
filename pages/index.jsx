@@ -28,14 +28,14 @@ const IndexSingle = () => {
             </div>
             <div className="col-lg-4">
               <div className="hero-right-image mt-20 wow fadeInUp delay-0-4s">
-                <img src="assets/images/hero/hero-right.png" alt="Hero" />
+                {/* <img src="assets/images/hero/hero-right.png" alt="Hero" /> */}
               </div>
             </div>
           </div>
         </div>
         <div className="container-fluid">
           <div className="hero-bottom-image">
-            <img src="assets/images/hero/merlin-main-pic.jpg" alt="Hero" />
+            {/* <img src="assets/images/hero/merlin-main-pic.jpg" alt="Hero" /> */}
             <div className="hero-social">
               <a href="#">
                 <i className="fab fa-facebook-f" /> <span>Facebook</span>

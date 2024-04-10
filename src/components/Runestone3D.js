@@ -79,7 +79,13 @@ const Runestone3D = () => {
     <div
       className="3D Model"
       ref={mountRef}
-      style={{ position: "absolute", zIndex: "3" }}
+      style={{
+        position: "absolute",
+        zIndex: "3",
+        top: "70%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
     />
   );
 };
