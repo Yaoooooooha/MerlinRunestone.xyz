@@ -32,7 +32,7 @@ const Runestone3D = () => {
 
     // 加载模型
     loader.load(
-      "assets/images/hero/runestone.glb",
+      "assets/images/hero/rune.glb",
       (gltf) => {
         // Traverse the scene
         gltf.scene.traverse((child) => {
