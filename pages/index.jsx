@@ -38,7 +38,7 @@ const IndexSingle = () => {
           </div>
           <div className="col-lg-12 mt-20 mb-20 early-access">
             <div className="theme-btn style-two wow fadeInLeft delay-0-2s early-access-btn">
-              <Link href={"#"}>REGISTER FOR EARLY ACCESS !!</Link>
+              <Link href={"#"}>REGISTER FOR EARLY ACCESS</Link>
             </div>
           </div>
         </div>

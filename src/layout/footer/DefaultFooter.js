@@ -9,18 +9,14 @@ const DefaultFooter = ({ dark }) => {
       }}
     >
       <div className="container container-1290">
-        <div className="footer-top pt-80 pb-60">
+        <div className="footer-top pt-20 pb-10">
           <div className="row align-items-center">
             <div className="col-lg-4">
               <div className="footer-logo mb-20 wow fadeInRight delay-0-2s animated">
                 <Link legacyBehavior href="/">
                   <a>
                     <img
-                      src={
-                        dark
-                          ? "assets/images/logos/footer-logo-white.png"
-                          : "assets/images/logos/footer-logo.png"
-                      }
+                      src={"assets/images/logos/footer-logo.png"}
                       alt="Logo"
                     />
                   </a>
@@ -46,7 +42,7 @@ const DefaultFooter = ({ dark }) => {
         <div className="footer-bottom">
           <div className="row align-items-center">
             <div className="col-xl-8 col-lg-6">
-              <div className="footer-bottom-menu pt-40 pb-35 rpb-0 wow fadeInRight delay-0-2s animated">
+              <div className="footer-bottom-menu pt-30 pb-35 rpb-0 wow fadeInRight delay-0-2s animated">
                 <ul>
                   <li>
                     <a legacyBehavior href="#home">
