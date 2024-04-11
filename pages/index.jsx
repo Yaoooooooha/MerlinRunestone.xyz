@@ -20,26 +20,24 @@ const IndexSingle = () => {
         className="hero-area pt-100 rpt-65 pb-100 rpb-65 rel z-1"
         style={{ height: "100vh" }}
       >
-        <Runestone3D />
         <div
-          className="container"
+          className="container hero-container"
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
             height: "85vh",
           }}
         >
           <div className="col-lg-12">
             <div className="hero-content wow fadeInLeft delay-0-2s">
               <h1>
-                <span>Merlin</span>{" "}
+                <span>Merlin</span> <br />
                 <i className="theme-color runestone-h1">Runestone</i>
               </h1>
             </div>
           </div>
-          <div className="col-lg-12 mt-20 mb-20">
-            <div className="theme-btn style-two me-4 wow fadeInLeft delay-0-2s">
+          <div className="col-lg-12 mt-20 mb-20 early-access">
+            <div className="theme-btn style-two wow fadeInLeft delay-0-2s early-access-btn">
               <Link href={"#"}>REGISTER FOR EARLY ACCESS !!</Link>
             </div>
           </div>
@@ -65,6 +63,9 @@ const IndexSingle = () => {
         </div> */}
       </section>
       {/* Hero Section End */}
+      <div className="runestone-container">
+        <Runestone3D />
+      </div>
       {/* About Us Area start */}
       <section id="about" className="about-area pt-100 rpt-100 rel z-1">
         <div className="container">
@@ -88,12 +89,12 @@ const IndexSingle = () => {
                     beatae vitae dictasunt explicabo voluptatem.
                   </p>
                   <Link legacyBehavior href="#">
-                    <a className="theme-btn style-two me-4">
+                    <a className="theme-btn style-two me-4 mt-20">
                       Learn More <i className="fa fa-arrow-right" />
                     </a>
                   </Link>
                   <Link legacyBehavior href="#">
-                    <a className="theme-btn style-two me-4">
+                    <a className="theme-btn style-two me-4 mt-20">
                       GET RUNESTONE <i className="fa fa-arrow-right" />
                     </a>
                   </Link>
@@ -105,7 +106,7 @@ const IndexSingle = () => {
       </section>
       {/* About Us Area end */}
       {/* Headline area start */}
-      <div className="headline-area pt-90 rpt-85 rel z-1">
+      <div className="headline-area rel z-0">
         <div className="container-fluid">
           <div className="headline-text marquee">
             <span>
@@ -119,7 +120,7 @@ const IndexSingle = () => {
       <section id="faq" className="what-we-do-area pt-90 rpt-80 rel z-1">
         <div className="container">
           <div className="row justify-content-between">
-            <div className="col-xl-6 col-lg-8">
+            <div className="col-xl-6 col-lg-12 what-we-do">
               <div className="what-we-do-content mb-55">
                 <div className="section-title mb-60 wow fadeInUp delay-0-2s">
                   <span className="sub-title mb-15">Why Merlin Runestone?</span>
@@ -163,18 +164,14 @@ const IndexSingle = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-6">
-              <div
-                className="what-we-do-image mb-55 wow fadeInRight delay-0-2s"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+            <div className="col-xl-6 what-we-do">
+              <div className="what-we-do-image mb-55 wow fadeInRight delay-0-2s">
                 <img
                   src="assets/images/faqs/merlin-main-pic.jpg"
                   alt="What We Do"
+                  style={{
+                    maxHeight: "80vh",
+                  }}
                 />
               </div>
             </div>
@@ -183,7 +180,7 @@ const IndexSingle = () => {
       </section>
       {/* What We Do end */}
       {/* Statistics Area start */}
-      <div className="statistics-area pt-75 rpt-45 rel z-1">
+      {/* <div className="statistics-area pt-75 rpt-45 rel z-1">
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-xl-2 col-lg-3 col-6">
@@ -216,11 +213,11 @@ const IndexSingle = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* Statistics Area end */}
       {/* Service Style Three start */}
       <section
-        id="services"
+        id="how-to-get-runestone"
         className="service-three-area pt-70 rpt-40 rel z-1"
       >
         <div className="container">
@@ -322,18 +319,19 @@ const IndexSingle = () => {
       </section>
       {/* Service Style Three end */}
       {/* Headline area start */}
-      <div className="headline-area pt-65 rpt-60 rel z-1">
+      <div className="headline-area pt-65 rpt-60 rel z-0">
         <div className="container-fluid">
           <div className="headline-text marquee">
             <span>
-              <span>Digital</span> solutions
+              <span>Go Get Your </span>RUNESTONE <span>Go Get Your </span>
+              RUNESTONE{" "}
             </span>
           </div>
         </div>
       </div>
       {/* Headline Area end */}
       {/* Project Timeline Area start */}
-      <section
+      {/* <section
         id="projects"
         className="project-timeline-area pt-90 rpt-75 rel z-1"
       >
@@ -423,10 +421,10 @@ const IndexSingle = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Project Timeline Area end */}
       {/* Team Area start */}
-      <section id="team" className="team-area pt-70 rpt-40">
+      {/* <section id="team" className="team-area pt-70 rpt-40">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-9">
@@ -631,383 +629,21 @@ const IndexSingle = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Team Area end */}
       {/* Headline area start */}
-      <div className="headline-area pt-65 rpt-55 rel z-1">
+      <div className="headline-area pt-65 rpt-55 rel z-0">
         <div className="container-fluid">
           <div className="headline-text marquee">
             <span>
-              pricing <span>Package</span>
+              <span>Before </span> TO LATE!! <span>Before </span> TO LATE!!{" "}
             </span>
           </div>
         </div>
       </div>
       {/* Headline Area end */}
-      {/* Pricing style three start */}
-      <section id="pricing" className="pricing-area-three pt-85">
-        <div className="container container-1290">
-          <div className="row justify-content-center">
-            <div className="col-xl-8 col-lg-10">
-              <div className="section-title text-center mb-60 wow fadeInUp delay-0-2s">
-                <span className="sub-title mb-20">Pricing Package</span>
-                <h2>Best Pricing Package For All Web Design Solutions</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xl-4 col-md-6 wow fadeInUp delay-0-2s">
-              <div
-                className="pricing-banner"
-                style={{
-                  backgroundImage:
-                    "url(assets/images/background/pricing-banner-bg.jpg)",
-                }}
-              >
-                <span className="join-us">Join With Us</span>
-                <h4>Amazing Pricing For Growth Business</h4>
-                <Link legacyBehavior href="/pricing">
-                  <a className="details-btn">
-                    <i className="far fa-arrow-right" />
-                  </a>
-                </Link>
-                <div className="hand-shape">
-                  <img
-                    src="assets/images/shapes/pricing-banner-hand-shape.png"
-                    alt="Pricing Banner Shape"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-md-6 wow fadeInUp delay-0-4s">
-              <div
-                className="pricing-plan-item style-three"
-                style={{
-                  backgroundImage:
-                    "url(assets/images/shapes/pricing-plan-bg.png)",
-                }}
-              >
-                <div className="icon-title">
-                  <div className="icon">
-                    <img src="assets/images/icons/price.svg" alt="Icon" />
-                  </div>
-                  <h5>Monthly Package</h5>
-                </div>
-                <p>
-                  We denounce with righteous indignation dislike beguiled and
-                  demoralize
-                </p>
-                <ul className="list-style-one">
-                  <li>Landing Page Design</li>
-                  <li>Web Development</li>
-                  <li>SEO Optimizations</li>
-                  <li>Mobile Applications Design</li>
-                  <li>Quality Assurance</li>
-                  <li>Customs Services</li>
-                </ul>
-                <div className="price-offer">
-                  <span className="price-text">
-                    <span className="before">$</span>
-                    <span className="price">18.3</span>
-                  </span>
-                  <img src="assets/images/shapes/right-arrow.png" alt="Arrow" />
-                  <span className="offer-text">Save 15%</span>
-                </div>
-                <Link legacyBehavior href="/pricing">
-                  <a className="theme-btn w-100">
-                    Choose Package <i className="far fa-arrow-right" />
-                  </a>
-                </Link>
-              </div>
-            </div>
-            <div className="col-xl-4 col-md-6 wow fadeInUp delay-0-6s">
-              <div
-                className="pricing-plan-item style-three"
-                style={{
-                  backgroundImage:
-                    "url(assets/images/shapes/pricing-plan-bg.png)",
-                }}
-              >
-                <div className="icon-title">
-                  <div className="icon">
-                    <img src="assets/images/icons/price.svg" alt="Icon" />
-                  </div>
-                  <h5>Yearly Package</h5>
-                </div>
-                <p>
-                  We denounce with righteous indignation dislike beguiled and
-                  demoralize
-                </p>
-                <ul className="list-style-one">
-                  <li>Landing Page Design</li>
-                  <li>Web Development</li>
-                  <li>SEO Optimizations</li>
-                  <li>Mobile Applications Design</li>
-                  <li>Quality Assurance</li>
-                  <li>Customs Services</li>
-                </ul>
-                <div className="price-offer">
-                  <span className="price-text">
-                    <span className="before">$</span>
-                    <span className="price">18.3</span>
-                  </span>
-                  <img src="assets/images/shapes/right-arrow.png" alt="Arrow" />
-                  <span className="offer-text">Save 15%</span>
-                </div>
-                <Link legacyBehavior href="/pricing">
-                  <a className="theme-btn w-100">
-                    Choose Package <i className="far fa-arrow-right" />
-                  </a>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Pricing style three end */}
-      {/* Why Choose Us Area start */}
-      <section className="why-choose-area pt-90 rpt-60 rel z-1">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-xl-7">
-              <div className="why-choose-left-image mb-40 wow fadeInLeft delay-0-2s">
-                <img
-                  src="assets/images/services/why-choose-left.jpg"
-                  alt="Why Choose Left Image"
-                />
-              </div>
-            </div>
-            <div className="col-xl-5">
-              <div className="why-choose-two-wrap">
-                <div className="section-title mb-55 wow fadeInUp delay-0-2s">
-                  <span className="sub-title mb-15">Why Choose Us</span>
-                  <h2>We Provide Services In One Places</h2>
-                </div>
-                <div className="why-choose-item-two wow fadeInUp delay-0-3s">
-                  <div className="icon">
-                    <i className="fas fa-check" />
-                    <span className="icon-bottom-shape" />
-                  </div>
-                  <div className="content">
-                    <h4>
-                      <Link legacyBehavior href="/service-details">
-                        <a>Competitive Rates</a>
-                      </Link>
-                    </h4>
-                    <p>
-                      We denounce with righteous indignation and dislike
-                      beguiled demoralized charms
-                    </p>
-                  </div>
-                </div>
-                <div className="why-choose-item-two wow fadeInUp delay-0-5s">
-                  <div className="icon">
-                    <i className="fas fa-check" />
-                    <span className="icon-bottom-shape" />
-                  </div>
-                  <div className="content">
-                    <h4>
-                      <Link legacyBehavior href="/service-details">
-                        <a>No Contracts Needed</a>
-                      </Link>
-                    </h4>
-                    <p>
-                      To take trivial example, which eundertakes laborious
-                      physical exercise except
-                    </p>
-                  </div>
-                </div>
-                <div className="why-choose-item-two wow fadeInUp delay-0-7s">
-                  <div className="icon">
-                    <i className="fas fa-check" />
-                  </div>
-                  <div className="content">
-                    <h4>
-                      <Link legacyBehavior href="/service-details">
-                        <a>Powerful Terminal Lines</a>
-                      </Link>
-                    </h4>
-                    <p>
-                      At vero eos et accusamus eto dignissimos duc blanditiis
-                      praesentium volupta
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Why Choose Us Area end */}
-      {/* Headline area start */}
-      <div className="headline-area pt-60 rpt-50 rel z-1">
-        <div className="container-fluid">
-          <div className="headline-text marquee">
-            <span>
-              <span>clients</span> Say’s
-            </span>
-          </div>
-        </div>
-      </div>
-      {/* Headline Area end */}
-      {/* Testimonial Area start */}
-      <section
-        id="testimonials"
-        className="testimonials-three-area pt-95 rpt-70"
-      >
-        <div className="container container-1260">
-          <div className="row gap-120 align-items-center">
-            <div className="col-lg-6">
-              <div className="testimonial-one-right-part rmb-75">
-                <Swiper
-                  {...sliderProps.testimonialsThreeActiveSwiper}
-                  className="testimonials-three-active wow fadeInUp delay-0-2s"
-                >
-                  <SwiperSlide className="testimonial-item style-three">
-                    <div className="ratting style-two">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                    <div className="author-speech">
-                      <p>
-                        On the other hand we denounce see with righteous
-                        indignation and dislike men who are so beguiled
-                        demoralized by the charms pleasure moment
-                      </p>
-                    </div>
-                    <div className="middle-quote">
-                      <div className="icon">
-                        <i className="flaticon-right-quote" />
-                      </div>
-                    </div>
-                    <div className="testimonial-footer">
-                      <div className="testimonial-author">
-                        <div className="author-info">
-                          <h4>Richard S. Robertson</h4>
-                          <span className="designation">CEO &amp; Founder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="testimonial-item style-three">
-                    <div className="ratting style-two">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                    <div className="author-speech">
-                      <p>
-                        On the other hand we denounce see with righteous
-                        indignation and dislike men who are so beguiled
-                        demoralized by the charms pleasure moment
-                      </p>
-                    </div>
-                    <div className="middle-quote">
-                      <div className="icon">
-                        <i className="flaticon-right-quote" />
-                      </div>
-                    </div>
-                    <div className="testimonial-footer">
-                      <div className="testimonial-author">
-                        <div className="author-info">
-                          <h4>Richard S. Robertson</h4>
-                          <span className="designation">CEO &amp; Founder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="testimonial-item style-three">
-                    <div className="ratting style-two">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                    <div className="author-speech">
-                      <p>
-                        On the other hand we denounce see with righteous
-                        indignation and dislike men who are so beguiled
-                        demoralized by the charms pleasure moment
-                      </p>
-                    </div>
-                    <div className="middle-quote">
-                      <div className="icon">
-                        <i className="flaticon-right-quote" />
-                      </div>
-                    </div>
-                    <div className="testimonial-footer">
-                      <div className="testimonial-author">
-                        <div className="author-info">
-                          <h4>Richard S. Robertson</h4>
-                          <span className="designation">CEO &amp; Founder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="testimonial-item style-three">
-                    <div className="ratting style-two">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                    <div className="author-speech">
-                      <p>
-                        On the other hand we denounce see with righteous
-                        indignation and dislike men who are so beguiled
-                        demoralized by the charms pleasure moment
-                      </p>
-                    </div>
-                    <div className="middle-quote">
-                      <div className="icon">
-                        <i className="flaticon-right-quote" />
-                      </div>
-                    </div>
-                    <div className="testimonial-footer">
-                      <div className="testimonial-author">
-                        <div className="author-info">
-                          <h4>Richard S. Robertson</h4>
-                          <span className="designation">CEO &amp; Founder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                </Swiper>
-                <div className="testimonial-controls style-three mt-65 rmt-40 wow fadeInUp delay-0-3s animated">
-                  <button className="testimonial-three-prev slick-arrow slick-disabled">
-                    <i className="far fa-long-arrow-left" />
-                  </button>
-                  <div className="testimonial-three-dots">
-                    <div className="slick-dots"></div>
-                  </div>
-                  <button className="testimonial-three-next slick-arrow">
-                    <i className="far fa-long-arrow-right" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="testimonials-three-image wow fadeInRight delay-0-2s">
-                <img
-                  src="assets/images/testimonials/testimonials-three.jpg"
-                  alt="Testimonials"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial Area end */}
       {/* Blog Style Two start */}
-      <section id="news" className="blog-area-two pt-125 rpt-100 pb-70 rpb-40">
+      {/* <section id="news" className="blog-area-two pt-125 rpt-100 pb-70 rpb-40">
         <div className="container container-1290">
           <div className="row justify-content-center">
             <div className="col-xl-8 col-lg-10">
@@ -1108,7 +744,7 @@ const IndexSingle = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Blog Style Two end */}
       {/* footer area start */}
     </Layout>

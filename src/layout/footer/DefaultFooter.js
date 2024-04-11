@@ -29,17 +29,15 @@ const DefaultFooter = ({ dark }) => {
             </div>
             <div className="col-lg-8 text-lg-end">
               <div className="social-style-four mb-20 wow fadeInLeft delay-0-2s animated">
-                <a href="#">
-                  <i className="fab fa-facebook-f" /> <span>Facebook</span>
+                <a href="#" target="_blank">
+                  <i className="fab fa-x-twitter" /> <span>Twitter</span>
                 </a>
-                <a href="#">
-                  <i className="fab fa-twitter" /> <span>Twitter</span>
+                <a href="#" target="_blank">
+                  <i className="fa-regular fa-paper-plane" />
+                  <span>Telegram</span>
                 </a>
-                <a href="#">
-                  <i className="fab fa-dribbble" /> <span>Dribbble</span>
-                </a>
-                <a href="#">
-                  <i className="fab fa-behance" /> <span>Behance</span>
+                <a href="#" target="_blank">
+                  <i className="fa-regular fa-envelope" /> <span>Email</span>
                 </a>
               </div>
             </div>
@@ -51,24 +49,29 @@ const DefaultFooter = ({ dark }) => {
               <div className="footer-bottom-menu pt-40 pb-35 rpb-0 wow fadeInRight delay-0-2s animated">
                 <ul>
                   <li>
-                    <Link legacyBehavior href="/about">
+                    <a legacyBehavior href="#home">
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a legacyBehavior href="#about">
                       <a>About</a>
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link legacyBehavior href="services">
-                      Services
-                    </Link>
-                  </li>
-                  <li>
-                    <Link legacyBehavior href="/faqs">
+                    <a legacyBehavior href="#faqs">
                       <a>FAQs</a>
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link legacyBehavior href="services">
-                      How IT Works
-                    </Link>
+                    <a legacyBehavior href="#how-to-get-runestone">
+                      How To Get Runestone
+                    </a>
+                  </li>
+                  <li>
+                    <a legacyBehavior href="#">
+                      More
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -76,9 +79,10 @@ const DefaultFooter = ({ dark }) => {
             <div className="col-xl-4 col-lg-6">
               <div className="copyright-text text-lg-end pt-40 pb-35 rpt-10 wow fadeInLeft delay-0-2s animated">
                 <p>
-                  Copyright @2023,{" "}
+                  Copyright @2024,
+                  <br />
                   <Link legacyBehavior href="/">
-                    <a>Ygency</a>
+                    <a>Merlin RUNESTONE</a>
                   </Link>{" "}
                   All Rights Reserved
                 </p>

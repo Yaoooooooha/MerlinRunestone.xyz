@@ -23,10 +23,10 @@ const SingleMenu = () => {
         <a href="#faq">FAQs</a>
       </li>
       <li>
-        <a href="#pricing">How to Get Runestone?</a>
+        <a href="#how-to-get-runestone">How to Get Runestone?</a>
       </li>
       <li>
-        <a href="#news">Discover More</a>
+        <a href="#">More</a>
       </li>
     </ul>
   );
