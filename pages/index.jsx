@@ -1,15 +1,13 @@
 import Layout from "@/src/layout/Layout";
-import { sliderProps } from "@/src/sliderProps";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 const Runestone3D = dynamic(() => import("@/src/components/Runestone3D"), {
   ssr: false,
 });
-const Counter = dynamic(() => import("@/src/components/Counter"), {
-  ssr: false,
-});
+// const Counter = dynamic(() => import("@/src/components/Counter"), {
+//   ssr: false,
+// });
 
 const IndexSingle = () => {
   return (
@@ -32,13 +30,25 @@ const IndexSingle = () => {
             <div className="hero-content wow fadeInLeft delay-0-2s">
               <h1>
                 <span>Merlin</span> <br />
-                <i className="theme-color runestone-h1">Runestone</i>
+                <i className="theme-color runestone-h1">RUNESTONE</i>
               </h1>
             </div>
           </div>
           <div className="col-lg-12 mt-20 mb-20 early-access">
             <div className="theme-btn style-two wow fadeInLeft delay-0-2s early-access-btn">
-              <Link href={"#"}>REGISTER FOR EARLY ACCESS</Link>
+              <div className="menu-sidebar">
+                <Link
+                  href={"#"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .querySelector("body")
+                      .classList.add("side-content-visible");
+                  }}
+                >
+                  EARLY ACCESS
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -79,25 +89,38 @@ const IndexSingle = () => {
               <div className="about-content wow fadeInUp delay-0-4s">
                 <div className="section-title mb-40">
                   <span className="sub-title mb-15">Merlin RUNESTONE</span>
-                  <h2>111 unique RUNESTONE</h2>
+                  <h2>111 unique RUNESTONEs</h2>
                 </div>
                 <div className="content">
                   <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium totam aperiam
-                    eaque quae abillo inventore veritatisey et quasi architecto
-                    beatae vitae dictasunt explicabo voluptatem.
+                    Merlin RUNESTONE is a unique NFT collection of 111
+                    RUNESTONEs across 5 themes, 5 styles, and 3 characters. It
+                    features 11 ultra-rare 1/1 editions, blending ancient magic
+                    with digital artistry for an enchanting blockchain
+                    experience.
                   </p>
-                  <Link legacyBehavior href="#">
+                  <Link
+                    legacyBehavior
+                    href="https://medium.com/@merlin.runestone.xyz/let-the-journey-begins-whats-merlinrunestone-dfe75671015d?source=social.tw"
+                    target="_blank"
+                  >
                     <a className="theme-btn style-two me-4 mt-20">
                       Learn More <i className="fa fa-arrow-right" />
                     </a>
                   </Link>
-                  <Link legacyBehavior href="#">
-                    <a className="theme-btn style-two me-4 mt-20">
-                      GET RUNESTONE <i className="fa fa-arrow-right" />
+                  <a legacyBehavior>
+                    <a className="theme-btn style-two me-4 mt-20 coming-soon">
+                      <p style={{ margin: 0 }}>GET RUNESTON</p>
+
+                      <p
+                        className="coming-soon-p"
+                        style={{ margin: 0, display: "none" }}
+                      >
+                        COMING SOON
+                      </p>
+                      <i className="fa fa-arrow-right" />
                     </a>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -116,15 +139,26 @@ const IndexSingle = () => {
         </div>
       </div>
       {/* Headline Area end */}
-      {/* What We Do start */}
+      {/* FAQs start */}
       <section id="faq" className="what-we-do-area pt-90 rpt-80 rel z-1">
         <div className="container">
           <div className="row justify-content-between">
+            <div className="col-xl-6 what-we-do">
+              <div className="what-we-do-image mb-55 wow fadeInRight delay-0-2s floating-down">
+                <img
+                  src="assets/images/faqs/merlin-main-pic.jpg"
+                  alt="What We Do"
+                  style={{
+                    maxHeight: "80vh",
+                  }}
+                />
+              </div>
+            </div>
             <div className="col-xl-6 col-lg-12 what-we-do">
               <div className="what-we-do-content mb-55">
                 <div className="section-title mb-60 wow fadeInUp delay-0-2s">
-                  <span className="sub-title mb-15">Why Merlin Runestone?</span>
-                  <h2>All RUNESTONE Belongs to Merlin</h2>
+                  <span className="sub-title mb-15">Why Merlin RUNESTONE?</span>
+                  <h2>All RUNESTONEs Belong to Merlin</h2>
                 </div>
                 <div className="what-we-do-item wow fadeInUp delay-0-3s">
                   <div className="number">
@@ -133,8 +167,8 @@ const IndexSingle = () => {
                   <div className="content">
                     <h5>Should I Get One?</h5>
                     <p>
-                      Sed ut perspiciatis unde omnis natus error voluptatem
-                      accusantium doloremque
+                      Definitely! Only 111 available. Get one NOW or FOMO
+                      latter.
                     </p>
                   </div>
                 </div>
@@ -145,8 +179,8 @@ const IndexSingle = () => {
                   <div className="content">
                     <h5>What's the Utility?</h5>
                     <p>
-                      Quis autem veleum iure reprehe nderitecy quie voluptate
-                      velit esse quam nihile
+                      Owning a RUNESTONE grants you Merlin’s magic, prestige,
+                      and mythical benefits.
                     </p>
                   </div>
                 </div>
@@ -157,22 +191,11 @@ const IndexSingle = () => {
                   <div className="content">
                     <h5>Roadmap?</h5>
                     <p>
-                      We denounce with righteous indignation and dislike
-                      beguiled demoralized charms
+                      PFP, Gaming, Token Airdrops, IDO... Exciting possibilities
+                      await! Details to be revealed post sell-out. Stay tuned!
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="col-xl-6 what-we-do">
-              <div className="what-we-do-image mb-55 wow fadeInRight delay-0-2s">
-                <img
-                  src="assets/images/faqs/merlin-main-pic.jpg"
-                  alt="What We Do"
-                  style={{
-                    maxHeight: "80vh",
-                  }}
-                />
               </div>
             </div>
           </div>
@@ -218,14 +241,18 @@ const IndexSingle = () => {
       {/* Service Style Three start */}
       <section
         id="how-to-get-runestone"
-        className="service-three-area pt-70 rpt-40 rel z-1"
+        className="service-three-area pt-100 rpt-70 rel z-1"
       >
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-7">
               <div className="section-title text-center mb-60 wow fadeInUp delay-0-2s">
-                <span className="sub-title mb-20">Popular Services</span>
-                <h2>We Provide Amazing Web Design Solutions</h2>
+                <span className="sub-title mb-20">How to Get RUNESTONE ?</span>
+                <h2>
+                  Just follow the instructions.
+                  <br />
+                  It's simple !
+                </h2>
               </div>
             </div>
           </div>
@@ -233,84 +260,110 @@ const IndexSingle = () => {
             <div className="col-xl-3 col-lg-4 col-md-6">
               <div className="service-three-item wow fadeInUp delay-0-2s">
                 <div className="title-icon">
-                  <h5>
-                    <Link legacyBehavior href="/service-details">
-                      <a>Web Design From Figma</a>
-                    </Link>
-                  </h5>
-                  <img src="assets/images/services/icon1.png" alt="Icon" />
+                  <h5>Join Early Access</h5>
+                  <img
+                    src="assets/images/services/icon1.png"
+                    alt="Icon"
+                    style={{ height: "100px" }}
+                  />
                 </div>
                 <div className="content">
-                  <p>We denounce with righteous indignation dislike beguile</p>
-                  <Link legacyBehavior href="/service-details">
+                  <p>Join early to become an OG in the Merlin RUNESSTONE.</p>
+                  <p>
+                    Enjoy minting privileges, giveaways, and bonus airdrops!
+                  </p>
+                  <div
+                    legacyBehavior
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document
+                        .querySelector("body")
+                        .classList.add("side-content-visible");
+                    }}
+                  >
                     <a className="read-more style-two">
-                      <span>Read More</span>{" "}
-                      <i className="far fa-arrow-right" />
+                      <span>JOIN NOW</span> <i className="fa fa-arrow-right" />
                     </a>
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-lg-4 col-md-6">
               <div className="service-three-item wow fadeInDown delay-0-2s">
                 <div className="title-icon">
-                  <h5>
-                    <Link legacyBehavior href="/service-details">
-                      <a>PSD, Figma, XD to HTML Convert</a>
-                    </Link>
-                  </h5>
-                  <img src="assets/images/services/icon2.png" alt="Icon" />
+                  <h5>Bid for RUNESTONE</h5>
+                  <img
+                    src="assets/images/services/icon2.png"
+                    alt="Icon"
+                    style={{ height: "100px" }}
+                  />
                 </div>
                 <div className="content">
-                  <p>At vero eos et accusamus et dignissim ducimbl ditiis</p>
-                  <Link legacyBehavior href="/service-details">
+                  <p>
+                    Join us every two days for official auctions starting at
+                    ZERO!
+                  </p>
+                  <p>
+                    Fall in love with a RUNESTONE? Place the highedt bid and
+                    claim your magic.
+                  </p>
+                  {/* <Link legacyBehavior href="#">
                     <a className="read-more style-two">
-                      <span>Read More</span>{" "}
-                      <i className="far fa-arrow-right" />
+                      <span>BID NOW</span> <i className="fa fa-arrow-right" />
                     </a>
-                  </Link>
+                  </Link> */}
+                  <a className="read-more style-two">
+                    <span>COMING SOON</span> <i className="fa fa-arrow-right" />
+                  </a>
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-lg-4 col-md-6">
               <div className="service-three-item wow fadeInUp delay-0-2s">
                 <div className="title-icon">
-                  <h5>
-                    <Link legacyBehavior href="/service-details">
-                      <a>WordPress Development</a>
-                    </Link>
-                  </h5>
-                  <img src="assets/images/services/icon3.png" alt="Icon" />
+                  <h5>RAID on X</h5>
+                  <img
+                    src="assets/images/services/icon3.png"
+                    alt="Icon"
+                    style={{ height: "100px" }}
+                  />
                 </div>
                 <div className="content">
-                  <p>To take trivial example which ever undertakes laborious</p>
-                  <Link legacyBehavior href="/service-details">
+                  <p>Weekly giveaways for our raiders of Merlin RUNESTONE!</p>
+                  <p>The more you RAID, the higher your chance to win!</p>
+                  {/* <Link legacyBehavior href="#">
                     <a className="read-more style-two">
-                      <span>Read More</span>{" "}
-                      <i className="far fa-arrow-right" />
+                      <span>RAID NOW</span> <i className="fa fa-arrow-right" />
                     </a>
-                  </Link>
+                  </Link> */}
+                  <a className="read-more style-two">
+                    <span>COMING SOON</span> <i className="fa fa-arrow-right" />
+                  </a>
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-lg-4 col-md-6">
               <div className="service-three-item wow fadeInDown delay-0-2s">
                 <div className="title-icon">
-                  <h5>
-                    <Link legacyBehavior href="/service-details">
-                      <a>React Development</a>
-                    </Link>
-                  </h5>
-                  <img src="assets/images/services/icon4.png" alt="Icon" />
+                  <h5>Buy from Market</h5>
+                  <img
+                    src="assets/images/services/icon4.png"
+                    alt="Icon"
+                    style={{ height: "100px" }}
+                  />
                 </div>
                 <div className="content">
-                  <p>Sed persiciatis unde omnisey natus error voluptatem</p>
-                  <Link legacyBehavior href="/service-details">
+                  <p>Missed out on a favorite Runestone?</p>
+                  <p>No worries! Snag it from the NFT marketplace.</p>
+                  <p>The earlier, the better!</p>
+                  {/* <Link legacyBehavior href="#">
                     <a className="read-more style-two">
-                      <span>Read More</span>{" "}
-                      <i className="far fa-arrow-right" />
+                      <span>BUY NOW</span> <i className="fa fa-arrow-right" />
                     </a>
-                  </Link>
+                  </Link> */}
+                  <a className="read-more style-two">
+                    <span>COMING SOON</span> <i className="fa fa-arrow-right" />
+                  </a>
                 </div>
               </div>
             </div>

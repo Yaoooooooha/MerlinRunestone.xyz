@@ -5,27 +5,18 @@ const Nav = ({ singleMenu }) => {
   return (
     <nav className="main-menu navbar-expand-lg">
       <Accordion>
-        <div className="navbar-header py-10">
-          <div className="mobile-logo">
-            <Link legacyBehavior href="/">
-              <a>
-                <img
-                  src="assets/images/logos/logo.png"
-                  alt="Logo"
-                  title="Logo"
-                />
-              </a>
-            </Link>
-          </div>
+        <div className="navbar-header">
           {/* Toggle Button */}
           <Accordion.Toggle
             as={"button"}
             className="navbar-toggle"
             eventKey="navbar-collapse"
           >
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-            <span className="icon-bar" />
+            <img
+              src="assets/images/icons/menu-warp.svg"
+              alt="Toggler"
+              style={{ height: "40px", margin: "30px" }}
+            />
           </Accordion.Toggle>
         </div>
         <Accordion.Collapse

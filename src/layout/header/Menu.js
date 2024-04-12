@@ -25,9 +25,9 @@ const SingleMenu = () => {
       <li>
         <a href="#how-to-get-runestone">How to Get Runestone?</a>
       </li>
-      <li>
+      {/* <li>
         <a href="#">More</a>
-      </li>
+      </li> */}
     </ul>
   );
 };

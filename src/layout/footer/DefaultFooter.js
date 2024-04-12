@@ -25,16 +25,16 @@ const DefaultFooter = ({ dark }) => {
             </div>
             <div className="col-lg-8 text-lg-end">
               <div className="social-style-four mb-20 wow fadeInLeft delay-0-2s animated">
-                <a href="#" target="_blank">
+                <a href="https://twitter.com/MerlinRUNESTONE" target="_blank">
                   <i className="fab fa-x-twitter" /> <span>Twitter</span>
                 </a>
                 <a href="#" target="_blank">
                   <i className="fa-regular fa-paper-plane" />
                   <span>Telegram</span>
                 </a>
-                <a href="#" target="_blank">
+                {/* <a href="#" target="_blank">
                   <i className="fa-regular fa-envelope" /> <span>Email</span>
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
