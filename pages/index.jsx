@@ -110,8 +110,7 @@ const IndexSingle = () => {
                   </Link>
                   <a legacyBehavior>
                     <a className="theme-btn style-two me-4 mt-20 coming-soon">
-                      <p style={{ margin: 0 }}>GET RUNESTON</p>
-
+                      <p style={{ margin: 0 }}>GET RUNESTONE</p>
                       <p
                         className="coming-soon-p"
                         style={{ margin: 0, display: "none" }}
