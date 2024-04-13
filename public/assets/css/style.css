@@ -11650,6 +11650,12 @@ blockquote .blockquote-footer:before {
   top: -90vh;
 }
 
+.runestone-image {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 @media only screen and (max-width: 1200px) {
   .runestone-container {
     display: flex;
@@ -11659,6 +11665,9 @@ blockquote .blockquote-footer:before {
   }
   .runestone-model {
     position: static;
+  }
+  .runestone-image {
+    background-size: cover;
   }
   .early-access {
     display: flex;

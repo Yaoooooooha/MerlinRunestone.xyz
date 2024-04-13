@@ -12,7 +12,12 @@ export default Menu;
 
 const SingleMenu = () => {
   return (
-    <ul className="navigation onepage clearfix">
+    <ul
+      className="navigation onepage clearfix"
+      onClick={(e) => {
+        document.querySelector(".navbar-collapse").classList.remove("show");
+      }}
+    >
       <li>
         <a href="#home">Home</a>
       </li>

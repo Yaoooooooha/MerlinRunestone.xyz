@@ -15,7 +15,7 @@ const Nav = ({ singleMenu }) => {
             <img
               src="assets/images/icons/menu-warp.svg"
               alt="Toggler"
-              style={{ height: "40px", margin: "30px" }}
+              style={{ height: "30px", margin: "10px 20px" }}
             />
           </Accordion.Toggle>
         </div>

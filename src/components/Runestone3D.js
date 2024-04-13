@@ -1,10 +1,11 @@
 // 首先，导入必要的模块
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const Runestone3D = () => {
   const mountRef = useRef(null); // 3D 模型的容器
+  const [imageVisible, setImageVisible] = useState(true); // 控制图片显示的状态
 
   useEffect(() => {
     // 場景
@@ -45,6 +46,8 @@ const Runestone3D = () => {
         scene.add(gltf.scene);
         model = gltf.scene;
         model.scale.set(0.8, 0.8, 0.8);
+        // 模型加载完成后隐藏图片;
+        setImageVisible(false);
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded"); // 加載進度
@@ -75,7 +78,21 @@ const Runestone3D = () => {
     };
   }, []);
 
-  return <div className="runestone-model" ref={mountRef} />;
+  return (
+    <div className="runestone-model" ref={mountRef}>
+      {/* 在模型加載完成之前，用來充場面的照片 */}
+      {imageVisible && (
+        <div
+          className="runestone-image"
+          style={{
+            backgroundImage: "url(assets/images/hero/rune.png)",
+            height: "100vh",
+            width: "window.innerWidth",
+          }}
+        ></div>
+      )}
+    </div>
+  );
 };
 
 export default Runestone3D;

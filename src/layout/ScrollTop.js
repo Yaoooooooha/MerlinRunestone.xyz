@@ -10,7 +10,7 @@ const ScrollTop = () => {
   };
   return (
     <button className="scroll-top scroll-to-target" onClick={() => scrollTop()}>
-      <span className="fas fa-angle-double-up" />
+      <span className="fas fa-angle-double-up" style={{ color: "black" }} />
     </button>
   );
 };
