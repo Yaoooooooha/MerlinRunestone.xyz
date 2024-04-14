@@ -77,7 +77,7 @@ const IndexSingle = () => {
         <Runestone3D />
       </div>
       {/* About Us Area start */}
-      <section id="about" className="about-area pt-100 rpt-100 rel z-1">
+      <section id="about" className="about-area pt-100 rpt-100 rel z-3">
         <div className="container">
           <div className="row justify-content-between">
             <div className="col-xl-5 col-lg-3">
