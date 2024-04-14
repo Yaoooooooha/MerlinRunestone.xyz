@@ -4,6 +4,7 @@ const SideBar = () => {
   const [twitterId, setTwitterId] = useState("");
   const [evmAddress, setEvmAddress] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // 添加一個新的 state 來追蹤是否正在提交表單
 
   const validateInput = () => {
     const twitterRegex = /^@[A-Za-z0-9_]{1,15}$/;
@@ -13,16 +14,14 @@ const SideBar = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // document
-    // .querySelector("body")
-    // .classList.remove("side-content-visible");
+    setIsSubmitting(true); // 在提交時設置 isSubmitting 為 true
 
-    // 標準化輸入：將 Twitter ID 和 EVM 地址轉為小寫
     const normalizedTwitterId = twitterId.toLowerCase();
     const normalizedEvmAddress = evmAddress.toLowerCase();
 
     if (!validateInput()) {
       setMessage("Please Enter VALID Twitter ID or EVM Address");
+      setIsSubmitting(false); // 如果驗證失敗，重置提交狀態
       return;
     }
     try {
@@ -42,8 +41,9 @@ const SideBar = () => {
       setTwitterId("");
       setEvmAddress("");
     } catch (error) {
-      setMessage("Proccessing Error");
+      setMessage("Processing Error");
     }
+    setIsSubmitting(false); // 處理完成後重置提交狀態
   };
 
   return (
@@ -57,7 +57,6 @@ const SideBar = () => {
           <div className="title">
             <h4>Early Access</h4>
           </div>
-          {/*Appointment Form*/}
           <div className="appointment-form">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -66,26 +65,32 @@ const SideBar = () => {
                   value={twitterId}
                   onChange={(e) => setTwitterId(e.target.value)}
                   placeholder="Twitter ID (@example)"
+                  disabled={isSubmitting} // 禁用輸入框當正在提交
                 />
               </div>
-
               <div className="form-group">
                 <input
                   type="text"
                   value={evmAddress}
                   onChange={(e) => setEvmAddress(e.target.value)}
                   placeholder="EVM Address (0x123...)"
+                  disabled={isSubmitting} // 禁用輸入框當正在提交
                 />
               </div>
               <div className="form-group">
-                <button type="submit" className="theme-btn">
-                  JOIN NOW
+                <button
+                  type="submit"
+                  className="theme-btn join-btn"
+                  style={{ cursor: isSubmitting ? "not-allowed" : "pointer" }}
+                  disabled={isSubmitting}
+                >
+                  {/* 按鈕顯示提交狀態 */}
+                  {isSubmitting ? "Registering..." : "JOIN NOW"}
                 </button>
               </div>
             </form>
             {message && <p style={{ color: "#a463ff" }}>{message}</p>}
           </div>
-          {/*Social Icons*/}
           <div className="social-style-one">
             <a href="https://twitter.com/MerlinRUNESTONE" target="_blank">
               <i className="fab fa-x-twitter" />
@@ -93,13 +98,11 @@ const SideBar = () => {
             <a href="#" target="_blank">
               <i className="fa-regular fa-paper-plane" />
             </a>
-            {/* <a href="#">
-              <i className="fa-regular fa-envelope" />
-            </a> */}
           </div>
         </div>
       </section>
     </Fragment>
   );
 };
+
 export default SideBar;
