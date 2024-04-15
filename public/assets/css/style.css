@@ -5851,7 +5851,7 @@ h6,
 /*******************************************************/
 @media only screen and (min-width: 576px) {
   .about-content .content {
-    margin-left: 60px;
+  
   }
 }
 
@@ -5863,8 +5863,8 @@ h6,
 
 .about-image img {
   display: inline-block;
-  -webkit-animation: rotated_circle 30s infinite;
-  animation: rotated_circle 30s infinite;
+  /* -webkit-animation: rotated_circle 30s infinite;
+  animation: rotated_circle 30s infinite; */
   max-width: 300px;
 }
 
@@ -10992,8 +10992,21 @@ blockquote .blockquote-footer:before {
   margin-right: 30px;
 }
 
+.testimonials-active {
+  --swiper-navigation-color: #00ff33;/* 单独设置按钮颜色 */
+  --swiper-navigation-size: 30px;/* 设置按钮大小 */
+}
+
 .testimonials-active .slick-list {
   padding-top: 15px;
+}
+
+.page {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.529);
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .testimonial-item.style-two .author-speech {
@@ -11615,7 +11628,7 @@ blockquote .blockquote-footer:before {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
 
   100% {

@@ -1,4 +1,6 @@
 import Layout from "@/src/layout/Layout";
+import { sliderProps } from "@/src/sliderProps";
+import { Swiper, SwiperSlide } from "swiper/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -80,28 +82,81 @@ const IndexSingle = () => {
       <section id="about" className="about-area pt-100 rpt-100 rel z-3">
         <div className="container">
           <div className="row justify-content-between">
-            <div className="col-xl-5 col-lg-3">
-              <div className="about-image rmb-45 wow fadeInUp delay-0-2s">
+            <div className="col-xl-5 col-lg-4">
+              <div className="about-image rmb-45 wow fadeInUp delay-0-2s floating-up">
                 <img src="assets/images/about/bitcoin.png" alt="Bitcoin" />
               </div>
             </div>
-            <div className="col-xl-7 col-lg-9">
+            <div className="col-xl-7 col-lg-8">
               <div className="about-content wow fadeInUp delay-0-4s">
                 <div className="section-title mb-40">
-                  <span className="sub-title mb-15">Merlin RUNESTONE</span>
-                  <h2>111 unique RUNESTONEs</h2>
+                  <span className="sub-title mb-15">Chapter 1</span>
+                  <h2>RUNEROCK - The Origins</h2>
                 </div>
                 <div className="content">
-                  <p>
+                  <Swiper
+                    {...sliderProps.testimonialsActiveSwiper}
+                    className="testimonials-active"
+                  >
+                    <SwiperSlide className="testimonial-item">
+                      <div className="author-speech">
+                        <p>
+                          Once upon a time, there was a prince named Merlin who
+                          lived in the magical kingdom — Merlin Chain.{" "}
+                          <span className="page">1</span>
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide className="testimonial-item">
+                      <div className="author-speech">
+                        <p>
+                          From the time he was little, Merlin was fascinated by
+                          something called RUNESTONE. He dreamed of collecting
+                          every single one in the world.{" "}
+                          <span className="page">2</span>
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide className="testimonial-item">
+                      <div className="author-speech">
+                        <p>
+                          When Merlin grew up, he decided it was time to start
+                          his journey. He wanted to travel the world and find as
+                          many RUNESTONEs as he could.{" "}
+                          <span className="page">3</span>
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide className="testimonial-item">
+                      <div className="author-speech">
+                        <p>
+                          His first stop? The nearby kingdom — Ethereum, where
+                          he hoped to discover ancient stones perfect for
+                          crafting his own RUNESTONEs.{" "}
+                          <span className="page">4</span>
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide className="testimonial-item">
+                      <div className="author-speech">
+                        <p>
+                          With excitement in his heart, Merlin embarked on his
+                          journey, and met Ether Rock{" "}
+                          <span className="page">5</span>
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                  </Swiper>
+                  {/* <p>
                     Merlin RUNESTONE is a unique NFT collection of 111
                     RUNESTONEs across 5 themes, 5 styles, and 3 characters. It
                     features 11 ultra-rare 1/1 editions, blending ancient magic
                     with digital artistry for an enchanting blockchain
                     experience.
-                  </p>
+                  </p> */}
                   <Link
                     legacyBehavior
-                    href="https://medium.com/@merlin.runestone.xyz/let-the-journey-begins-whats-merlinrunestone-dfe75671015d?source=social.tw"
+                    href="https://medium.com/@merlin.runestone.xyz/chapter-1-runerock-the-origins-bebde2ee8676"
                     target="_blank"
                   >
                     <a className="theme-btn style-two me-4 mt-20">
@@ -110,7 +165,7 @@ const IndexSingle = () => {
                   </Link>
                   <a legacyBehavior>
                     <a className="theme-btn style-two me-4 mt-20 coming-soon">
-                      <p style={{ margin: 0 }}>GET RUNESTONE</p>
+                      <p style={{ margin: 0 }}>GET RUNEROCK</p>
                       <p
                         className="coming-soon-p"
                         style={{ margin: 0, display: "none" }}
