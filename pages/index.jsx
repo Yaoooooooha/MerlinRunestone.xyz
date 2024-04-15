@@ -154,7 +154,7 @@ const IndexSingle = () => {
                     with digital artistry for an enchanting blockchain
                     experience.
                   </p> */}
-                  <Link
+                  <a
                     legacyBehavior
                     href="https://medium.com/@merlin.runestone.xyz/chapter-1-runerock-the-origins-bebde2ee8676"
                     target="_blank"
@@ -162,7 +162,7 @@ const IndexSingle = () => {
                     <a className="theme-btn style-two me-4 mt-20">
                       Learn More <i className="fa fa-arrow-right" />
                     </a>
-                  </Link>
+                  </a>
                   <a legacyBehavior>
                     <a className="theme-btn style-two me-4 mt-20 coming-soon">
                       <p style={{ margin: 0 }}>GET RUNEROCK</p>
