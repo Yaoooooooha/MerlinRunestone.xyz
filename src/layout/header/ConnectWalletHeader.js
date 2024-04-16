@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Nav from "./Nav";
-import ConnectWalletBtn from "@/src/components/connectWallet";
+import ConnectWalletBtn from "@/src/components/ConnectWallet";
 
 const ConnectWalletHeader = ({ singleMenu, dark }) => {
   return (

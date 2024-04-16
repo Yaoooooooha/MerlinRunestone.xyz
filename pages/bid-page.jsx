@@ -2,67 +2,58 @@ import { useState } from "react";
 import Layout from "@/src/layout/Layout";
 import Link from "next/link";
 import { Nav, Tab } from "react-bootstrap";
-
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/src/config/config";
-import {
-  useWriteContract,
-  useAccount,
-  useWaitForTransactionReceipt,
-} from "wagmi";
+import { useAccount } from "wagmi";
 
 const ProductDetails = () => {
-  const { data: hash, isPending, writeContract } = useWriteContract();
   const { address } = useAccount();
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
-
   const todayItem = {
-    title: "RUNESTONE #1",
+    title: "RUNEROCK #1",
     image: "assets/images/bid/today-item.jpeg",
-    category: {
-      theme: "Classic",
-      style: "Pixel",
-      charater: "None",
-    },
-    price: 0,
+    price: "Highest Bid",
+    owner: "Bid By",
+    startTime: "4/20 00:00 UTC",
+    remainTime: "Auction Ends In",
     status: "In Progress",
   };
   const yesterdayItem = {
-    title: "RUNESTONE #0",
+    title: "RUNEROCK #0",
     image: "assets/images/bid/yesterday-item.jpeg",
-    category: {
-      theme: "Classic",
-      style: "Pixel",
-      charater: "Owl",
-    },
-    price: 0,
+    price: "Sold Price",
+    owner: "Owned By",
+    startTime: "4/19 00:00 UTC",
+    remainTime: "Auction Ends At",
     status: "Sold",
   };
   const tommorowItem = {
-    title: "RUNESTONE #2",
+    title: "RUNEROCK #2",
     image: "assets/images/bid/tommorow-item.jpeg",
-    category: {
-      theme: "Classic",
-      style: "Pixel",
-      charater: "Merlin",
-    },
-    price: 0,
+    price: "Start Price",
+    owner: "Owned By",
+    startTime: "4/21 00:00 UTC",
+    remainTime: "Auction Start In",
     status: "Preparing",
   };
 
   const [selectedItem, setSelectedItem] = useState(todayItem);
-  const selectHandler = (item) => {};
+  const selectHandler = (item) => {
+    if (item === "yesterday-item") {
+      setSelectedItem(yesterdayItem);
+    } else if (item === "today-item") {
+      setSelectedItem(todayItem);
+    } else if (item === "tommorow-item") {
+      setSelectedItem(tommorowItem);
+    }
+  };
 
   return (
     <Layout header={1} singleMenu footer={1} dark>
       {/* Product Details Start */}
-      <section className="product-details pt-130 rpt-100 rel z-1">
+      <section className="product-details rel z-1">
         <div className="container container-1290">
-          <div className="row align-items-center gap-70">
-            <div className="col-lg-6">
+          <div className="row  gap-70">
+            <div className="col-lg-6 bid-image">
               <Tab.Container defaultActiveKey={"today-item"}>
                 <div className="product-details-images rmb-55 wow fadeInLeft delay-0-2s">
                   <Tab.Content className="tab-content preview-images">
@@ -91,7 +82,7 @@ const ProductDetails = () => {
                       href="#yesterday-tiem"
                       eventKey="yesterday-tiem"
                       className="thumb-item"
-                      onClick={selectHandler("yesterday-item")}
+                      onClick={() => selectHandler("yesterday-item")}
                     >
                       Last Sold
                     </Nav.Link>
@@ -100,7 +91,7 @@ const ProductDetails = () => {
                       href="#today-item"
                       eventKey="today-item"
                       className="thumb-item"
-                      onClick={selectHandler("today-item")}
+                      onClick={() => selectHandler("today-item")}
                     >
                       In Auction
                     </Nav.Link>
@@ -109,7 +100,7 @@ const ProductDetails = () => {
                       href="#tommorow-item"
                       eventKey="tommorow-item"
                       className="thumb-item"
-                      onClick={selectHandler("tommorow-item")}
+                      onClick={() => selectHandler("tommorow-item")}
                     >
                       Next Item
                     </Nav.Link>
@@ -117,29 +108,26 @@ const ProductDetails = () => {
                 </div>
               </Tab.Container>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6 bid-info">
               <div className="product-details-content wow fadeInRight delay-0-2s">
                 <div className="section-title">
-                  <h2>3D Illustration Design</h2>
+                  <h2>{selectedItem.title}</h2>
                 </div>
-                <div className="ratting-price mb-30">
-                  <div className="ratting">
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                  </div>
-                  <span className="price">593</span>
+                <div className="ratting-price mb-15">
+                  {selectedItem.price}
+                  <br />
+                  <span className="price">0.2 BTC</span>
                 </div>
-                <p>
-                  Doloremque laudantium, totam rem aperiam, eaque ipsa quae
-                  abillo inventore veritatis quasi architecto beatae vitae dicta
-                  sunt explicabo Nemo enim ipsam voluptatem quia voluptas sit
-                  aspernatur aut odit autfugit, sed quia consequuntur magni
-                  dolores eos qui ratiluptatem sequi nesciunt porro quisquam
-                  est, qui dolorem
-                </p>
+                <div className="ratting-price mb-15">
+                  {selectedItem.owner}
+                  <br />
+                  <span className="price">0x0</span>
+                </div>
+                <div className="ratting-price mb-15">
+                  {selectedItem.remainTime}
+                  <br />
+                  <span className="price">1 hr</span>
+                </div>
                 <form action="#" className="add-to-cart pt-35">
                   <input
                     type="number"
@@ -149,101 +137,12 @@ const ProductDetails = () => {
                     required
                   />
                   <button type="submit" className="theme-btn style-two">
-                    Add to Cart <i className="far fa-arrow-right" />
+                    Place Your Bids <i className="far fa-arrow-right" />
                   </button>
                 </form>
-                <ul className="category-tags pt-60">
-                  <li>
-                    <b>Category :</b>
-                    <Link legacyBehavior href="/shop">
-                      Software
-                    </Link>
-                    <Link legacyBehavior href="/shop">
-                      Website
-                    </Link>
-                    <Link legacyBehavior href="/shop">
-                      Development
-                    </Link>
-                  </li>
-                  <li>
-                    <b>Tags :</b>
-                    <Link legacyBehavior href="/shop">
-                      3D
-                    </Link>
-                    <Link legacyBehavior href="/shop">
-                      Ilustration
-                    </Link>
-                    <Link legacyBehavior href="/shop">
-                      Arts
-                    </Link>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
-          <Tab.Container defaultActiveKey={"details"}>
-            <Nav className="nav product-information-tab mt-80 mb-25 wow fadeInUp delay-0-2s">
-              <li>
-                <Nav.Link as="a" eventKey="details" href="#details">
-                  Description <i className="far fa-arrow-right" />
-                </Nav.Link>
-              </li>
-              <li>
-                <Nav.Link as="a" eventKey="information" href="#information">
-                  Reviews <i className="far fa-arrow-right" />
-                </Nav.Link>
-              </li>
-            </Nav>
-            <Tab.Content className="tab-content pb-30 wow fadeInUp delay-0-2s">
-              <Tab.Pane className="tab-pane fade" eventKey="details">
-                <p>
-                  Must explain to you how all this mistaken idea of denouncing
-                  pleasure and praising pain was born and I will give you a
-                  complete account of the system, and expound the actual
-                  teachings of the great explorer of the truth, the
-                  master-builder of human happiness. No one rejects, dislikes,
-                  or avoids pleasure itself, because it is pleasure, but because
-                  those who do not know how to pursue pleasure rationally
-                  encounter consequences that are extremely painful. Nor again
-                  is there anyone who loves or pursues or desires to obtain pain
-                  of itself, because it is pain, but because occasionally
-                </p>
-                <br />
-                <h4>Additional information</h4>
-                <p>
-                  Circumstances occur in which toil and pain can procure him
-                  some great pleasure. To take a trivial example, which of us
-                  ever undertakes laborious physical exercise, except to obtain
-                  some advantage from it? But who has any right to find fault
-                  with a man who chooses
-                </p>
-                <ul className="list-style-three pt-10">
-                  <li>Graphic Design</li>
-                  <li>3D Illustrations Design</li>
-                  <li>Dashboard Design</li>
-                </ul>
-              </Tab.Pane>
-              <Tab.Pane className="tab-pane fade" eventKey="information">
-                <p>
-                  Now wherever you are, wherever you are, you can easily monitor
-                  your CCTV videos through your mobile, tab, laptop or PC. With
-                  the wireless camera, you can view the camera from your mobile
-                  or computer to the right-left 0 to 360-degree video. Cover the
-                  flower room with a camera.
-                </p>
-                <ul className="list-style-two my-15">
-                  <li>Wide Angle and Long Length</li>
-                  <li>Smart zooming point</li>
-                  <li>HD quality video output.</li>
-                  <li>Smart Alarming System</li>
-                </ul>
-                <p>
-                  Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                  amet, consectetur, adipisci velit, sed quia non numquam
-                </p>
-              </Tab.Pane>
-            </Tab.Content>
-          </Tab.Container>
         </div>
       </section>
       {/* Product Details End */}

@@ -17,14 +17,14 @@ const SingleMenu = ({ singleMenu }) => {
         <Link href="/">Home</Link>
       </li>
       <li>
-        <Link href="/bid-rule">Bid Rule</Link>
-      </li>
-      {/* <li>
-        <Link href="#faq">FAQs</Link>
+        <Link href="/bid-page">Bid RUNEROCK</Link>
       </li>
       <li>
-        <Link href="#how-to-get-runestone">How to Get Runestone?</Link>
-      </li> */}
+        <Link href="/bid-rule">Bid Rule</Link>
+      </li>
+      <li>
+        <Link href="/claim">Claim</Link>
+      </li>
       {/* <li>
         <a href="#">More</a>
       </li> */}
