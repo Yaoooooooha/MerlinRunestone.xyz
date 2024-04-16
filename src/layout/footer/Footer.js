@@ -2,8 +2,10 @@ import DefaultFooter from "./DefaultFooter";
 
 const Footer = ({ footer, dark }) => {
   switch (footer) {
-    default:
+    case 0:
       return <DefaultFooter dark={dark} />;
+    default:
+      return <></>;
   }
 };
 export default Footer;

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Accordion } from "react-bootstrap";
 import Menu from "./Menu";
+
 const Nav = ({ singleMenu }) => {
   return (
     <nav className="main-menu navbar-expand-lg">

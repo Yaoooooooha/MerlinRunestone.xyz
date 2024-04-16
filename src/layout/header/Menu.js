@@ -1,17 +1,35 @@
 import Link from "next/link";
 
 import { Fragment, useState } from "react";
-const Menu = () => {
+const Menu = ({ singleMenu }) => {
   return (
     <Fragment>
-      <SingleMenu />
+      <SingleMenu singleMenu={singleMenu} />
     </Fragment>
   );
 };
 export default Menu;
 
-const SingleMenu = () => {
-  return (
+const SingleMenu = ({ singleMenu }) => {
+  return singleMenu === "bid-page" ? (
+    <ul className="navigation onepage clearfix">
+      <li>
+        <Link href="/">Home</Link>
+      </li>
+      <li>
+        <Link href="/bid-rule">Bid Rule</Link>
+      </li>
+      {/* <li>
+        <Link href="#faq">FAQs</Link>
+      </li>
+      <li>
+        <Link href="#how-to-get-runestone">How to Get Runestone?</Link>
+      </li> */}
+      {/* <li>
+        <a href="#">More</a>
+      </li> */}
+    </ul>
+  ) : (
     <ul
       className="navigation onepage clearfix"
       onClick={(e) => {

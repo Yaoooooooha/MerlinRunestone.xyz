@@ -13,7 +13,7 @@ const Runestone3D = dynamic(() => import("@/src/components/Runestone3D"), {
 
 const IndexSingle = () => {
   return (
-    <Layout singleMenu dark>
+    <Layout header={0} singleMenu footer={0} dark>
       {/* Hero Section Start */}
       <section
         id="home"

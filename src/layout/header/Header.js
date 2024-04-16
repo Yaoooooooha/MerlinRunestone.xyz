@@ -1,6 +1,7 @@
 import { stickyNav } from "@/src/utils";
 import { useEffect } from "react";
 import DefaultHeader from "./DefaultHeader";
+import ConnectWalletHeader from "./ConnectWalletHeader";
 
 const Header = ({ header, singleMenu, dark }) => {
   useEffect(() => {
@@ -8,8 +9,12 @@ const Header = ({ header, singleMenu, dark }) => {
   }, []);
 
   switch (header) {
-    default:
+    case 0:
       return <DefaultHeader singleMenu={singleMenu} dark={dark} />;
+    case 1:
+      return <ConnectWalletHeader singleMenu={"bid-page"} dark={dark} />;
+    default:
+      return <></>;
   }
 };
 export default Header;
