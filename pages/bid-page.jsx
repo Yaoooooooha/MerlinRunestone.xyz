@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/src/layout/Layout";
 import Link from "next/link";
 import { Nav, Tab } from "react-bootstrap";
@@ -47,101 +47,133 @@ const ProductDetails = () => {
     }
   };
 
+  // Inside your Next.js component
+  const currentBid = 0; // Replace with the current bid amount from the contract
+  // Inside your Next.js component
+  const [enteredBid, setEnteredBid] = useState(0);
+
+  useEffect(() => {
+    // Fetch and set the initial bid price, e.g., from an API
+    const initialBidPrice = fetchInitialBidPrice(); // Replace with your fetch logic
+    setEnteredBid(initialBidPrice);
+  }, []);
+
+  const handleBidChange = (event) => {
+    const newBid = parseFloat(event.target.value);
+    if (newBid < currentBid + 0.0005) {
+      alert("Bid must be at least 0.0005 BTC higher than the current bid.");
+      event.target.value = (currentBid + 0.0005).toFixed(4); // Reset the input to the minimum allowed bid
+    } else {
+      setEnteredBid(newBid); // Update the current bid amount in the component state
+    }
+  };
+
+  // Function to fetch the initial bid price
+  const fetchInitialBidPrice = () => {
+    // Fetch the initial bid price, e.g., from an API
+    return 0.0005;
+  };
+
   return (
     <Layout header={1} singleMenu footer={1} dark>
       {/* Product Details Start */}
       <section className="product-details rel z-1">
-        <div className="container container-1290">
-          <div className="row  gap-70">
-            <div className="col-lg-6 bid-image">
-              <Tab.Container defaultActiveKey={"today-item"}>
-                <div className="product-details-images rmb-55 wow fadeInLeft delay-0-2s">
-                  <Tab.Content className="tab-content preview-images">
-                    <Tab.Pane
-                      className="tab-pane fade preview-item"
-                      eventKey="yesterday-tiem"
-                    >
-                      <img src={selectedItem.image} alt="yesterday-tiem" />
-                    </Tab.Pane>
-                    <Tab.Pane
-                      className="tab-pane fade preview-item"
-                      eventKey="today-item"
-                    >
-                      <img src={selectedItem.image} alt="today-item" />
-                    </Tab.Pane>
-                    <Tab.Pane
-                      className="tab-pane fade preview-item"
-                      eventKey="tommorow-item"
-                    >
-                      <img src={selectedItem.image} alt="tommorow-item" />
-                    </Tab.Pane>
-                  </Tab.Content>
-                  <Nav className="nav thumb-images rmb-20">
-                    <Nav.Link
-                      as="a"
-                      href="#yesterday-tiem"
-                      eventKey="yesterday-tiem"
-                      className="thumb-item"
-                      onClick={() => selectHandler("yesterday-item")}
-                    >
-                      Last Sold
-                    </Nav.Link>
-                    <Nav.Link
-                      as="a"
-                      href="#today-item"
-                      eventKey="today-item"
-                      className="thumb-item"
-                      onClick={() => selectHandler("today-item")}
-                    >
-                      In Auction
-                    </Nav.Link>
-                    <Nav.Link
-                      as="a"
-                      href="#tommorow-item"
-                      eventKey="tommorow-item"
-                      className="thumb-item"
-                      onClick={() => selectHandler("tommorow-item")}
-                    >
-                      Next Item
-                    </Nav.Link>
-                  </Nav>
-                </div>
-              </Tab.Container>
+        <div className="col-lg-6 bid-image">
+          <Tab.Container defaultActiveKey={"today-item"}>
+            <div className="product-details-images rmb-55 wow fadeInLeft delay-0-2s">
+              <Tab.Content className="tab-content preview-images">
+                <Tab.Pane
+                  className="tab-pane fade preview-item"
+                  eventKey="yesterday-tiem"
+                >
+                  <img src={selectedItem.image} alt="yesterday-tiem" />
+                </Tab.Pane>
+                <Tab.Pane
+                  className="tab-pane fade preview-item"
+                  eventKey="today-item"
+                >
+                  <img src={selectedItem.image} alt="today-item" />
+                </Tab.Pane>
+                <Tab.Pane
+                  className="tab-pane fade preview-item"
+                  eventKey="tommorow-item"
+                >
+                  <img src={selectedItem.image} alt="tommorow-item" />
+                </Tab.Pane>
+              </Tab.Content>
+              <Nav className="nav thumb-images rmb-20">
+                <Nav.Link
+                  as="a"
+                  href="#yesterday-tiem"
+                  eventKey="yesterday-tiem"
+                  className="thumb-item"
+                  onClick={() => selectHandler("yesterday-item")}
+                >
+                  Last Sold
+                </Nav.Link>
+                <Nav.Link
+                  as="a"
+                  href="#today-item"
+                  eventKey="today-item"
+                  className="thumb-item"
+                  onClick={() => selectHandler("today-item")}
+                >
+                  In Auction
+                </Nav.Link>
+                <Nav.Link
+                  as="a"
+                  href="#tommorow-item"
+                  eventKey="tommorow-item"
+                  className="thumb-item"
+                  onClick={() => selectHandler("tommorow-item")}
+                >
+                  Next Item
+                </Nav.Link>
+              </Nav>
             </div>
-            <div className="col-lg-6 bid-info">
-              <div className="product-details-content wow fadeInRight delay-0-2s">
-                <div className="section-title">
-                  <h2>{selectedItem.title}</h2>
-                </div>
-                <div className="ratting-price mb-15">
-                  {selectedItem.price}
-                  <br />
-                  <span className="price">0.2 BTC</span>
-                </div>
-                <div className="ratting-price mb-15">
-                  {selectedItem.owner}
-                  <br />
-                  <span className="price">0x0</span>
-                </div>
-                <div className="ratting-price mb-15">
-                  {selectedItem.remainTime}
-                  <br />
-                  <span className="price">1 hr</span>
-                </div>
-                <form action="#" className="add-to-cart pt-35">
+          </Tab.Container>
+        </div>
+        <div className="col-lg-6 bid-info">
+          <div className="product-details-content wow fadeInRight delay-0-2s">
+            <div className="section-title">
+              <h2>{selectedItem.title}</h2>
+            </div>
+            <div className="ratting-price mb-15">
+              {selectedItem.price}
+              <br />
+              <span className="price">0.2 BTC</span>
+            </div>
+            <div className="ratting-price mb-15">
+              {selectedItem.owner}
+              <br />
+              <span className="price">0x0</span>
+            </div>
+            <div className="ratting-price mb-15">
+              {selectedItem.remainTime}
+              <br />
+              <span className="price">1 hr</span>
+            </div>
+            {selectedItem.status === "In Progress" && (
+              <form action="#" className="add-to-cart pt-35">
+                <div className="bid-input">
                   <input
                     type="number"
-                    min={1}
-                    max={20}
-                    onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;"
-                    required
+                    step="0.0005"
+                    min="0"
+                    onChange={handleBidChange}
+                    value={enteredBid}
                   />
-                  <button type="submit" className="theme-btn style-two">
-                    Place Your Bids <i className="far fa-arrow-right" />
-                  </button>
-                </form>
-              </div>
-            </div>
+                  <span className="btc-unit">BTC</span>
+                </div>
+                <button type="submit" className="theme-btn style-two">
+                  Place Bid{" "}
+                  <i
+                    className="fa-solid fa-gavel"
+                    style={{ transform: "rotate(0deg)" }}
+                  />
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
