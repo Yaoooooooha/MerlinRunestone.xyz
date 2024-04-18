@@ -11641,11 +11641,11 @@ blockquote .blockquote-footer:before {
   align-items: center;
 }
 
-a.theme-btn.style-two.coming-soon:hover p {
+.coming-soon:hover p {
   display: none !important;
 }
 
-a.theme-btn.style-two.coming-soon:hover .coming-soon-p {
+.coming-soon:hover .coming-soon-p {
   display: block !important;
 }
 
@@ -11686,8 +11686,6 @@ a.theme-btn.style-two.coming-soon:hover .coming-soon-p {
     margin-right: 20px;
   }
 }
-
-/********************* ## Bid Info *********************/
 
 .product-details {
   height: 100vh;
@@ -11756,6 +11754,7 @@ a.theme-btn.style-two.coming-soon:hover .coming-soon-p {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  position: relative;
 }
 .product-details-content .add-to-cart .bid-input {
   width: 180px;
@@ -11784,7 +11783,13 @@ a.theme-btn.style-two.coming-soon:hover .coming-soon-p {
   margin: 10px 10px 0 0;
 }
 
-@media only screen and (min-width: 1400px) {
+.msg-popup {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(110%);
+}
+
+@media only screen and (min-width: 1500px) {
   .product-details-content .section-title h2 {
     font-size: 84px;
     margin-bottom: 30px;
@@ -11839,7 +11844,7 @@ a.theme-btn.style-two.coming-soon:hover .coming-soon-p {
     padding-top: 0;
   }
   .product-details-content {
-    padding: 5vh 10vw;
+    padding: 10vh 10vw;
     padding-top: 0;
   }
 }
@@ -11853,5 +11858,107 @@ a.theme-btn.style-two.coming-soon:hover .coming-soon-p {
   }
   .product-details-content .ratting-price .price {
     font-size: 20px;
+  }
+}
+
+/*******************************************************/
+/********************* ## Bid RULE *********************/
+/*******************************************************/
+
+.bid-rule h2 {
+  color: var(--ygency-primary-color);
+  font-size: 7vw;
+}
+
+.bid-rule h4 {
+  color: var(--ygency-secondary-color);
+  font-size: 3vw;
+}
+
+.bid-rule ul {
+  padding-left: 0;
+}
+
+.bid-rule li {
+  list-style-type: none;
+  padding-top: 1rem;
+  font-size: 25px;
+  line-height: 1.5;
+}
+
+.bid-rule p {
+  margin: 0;
+}
+
+.bid-rule .rule-title {
+  font-size: 35px;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+
+.bid-rule .rule-title:hover {
+  color: white !important;
+}
+
+@media only screen and (max-width: 991px) {
+  .bid-rule {
+    margin-top: 5vh;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .bid-rule li {
+    padding-top: 0.5rem;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .bid-rule .rule-title {
+    font-size: 28px;
+  }
+
+  .bid-rule h2 {
+    font-size: 48px;
+  }
+
+  .bid-rule h4 {
+    color: var(--ygency-secondary-color);
+    font-size: 36px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .bid-rule {
+    margin-bottom: 10vh;
+  }
+
+  .bid-rule h2 {
+    font-size: 48px;
+  }
+
+  .bid-rule h4 {
+    color: var(--ygency-secondary-color);
+    font-size: 36px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .bid-rule li {
+    padding-top: 0.5rem;
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .bid-rule .rule-title {
+    font-size: 22px;
+  }
+
+  .bid-rule h2 {
+    font-size: 36px;
+  }
+
+  .bid-rule h4 {
+    color: var(--ygency-secondary-color);
+    font-size: 24px;
   }
 }

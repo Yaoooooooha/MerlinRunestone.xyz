@@ -1,20 +1,31 @@
 import { useState, useEffect } from "react";
 import Layout from "@/src/layout/Layout";
-import Link from "next/link";
 import { Nav, Tab } from "react-bootstrap";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/src/config/config";
 import { useAccount } from "wagmi";
 
 const ProductDetails = () => {
   const { address } = useAccount();
+  // 提示訊息
+  const [msg, setMsg] = useState(null);
+  const [msgStyle, setMsgStyle] = useState({});
+
+  // 處理訊息的函數
+  const displayMsg = (noError, message) => {
+    const color = noError ? "rgba(0, 255, 0, 0.651)" : "rgba(255, 0, 0, 0.651)";
+    setMsgStyle({ color });
+    setMsg(message);
+    setTimeout(() => {
+      setMsg(null);
+    }, 5000); // Error message disappears after 5 seconds
+  };
 
   const todayItem = {
     title: "RUNEROCK #1",
     image: "assets/images/bid/today-item.jpeg",
-    price: "Highest Bid",
-    owner: "Bid By",
+    price: "Now Price",
     startTime: "4/20 00:00 UTC",
-    remainTime: "Auction Ends In",
+    remainTime: "Ends In",
     status: "In Progress",
   };
   const yesterdayItem = {
@@ -30,9 +41,8 @@ const ProductDetails = () => {
     title: "RUNEROCK #2",
     image: "assets/images/bid/tommorow-item.jpeg",
     price: "Start Price",
-    owner: "Owned By",
     startTime: "4/21 00:00 UTC",
-    remainTime: "Auction Start In",
+    remainTime: "Start In",
     status: "Preparing",
   };
 
@@ -58,15 +68,25 @@ const ProductDetails = () => {
     setEnteredBid(initialBidPrice);
   }, []);
 
-  const handleBidChange = (event) => {
-    const newBid = parseFloat(event.target.value);
-    if (newBid < currentBid + 0.0005) {
-      alert("Bid must be at least 0.0005 BTC higher than the current bid.");
-      event.target.value = (currentBid + 0.0005).toFixed(4); // Reset the input to the minimum allowed bid
-    } else {
-      setEnteredBid(newBid); // Update the current bid amount in the component state
-    }
-  };
+  // const handleBidChange = (event) => {
+  //   // 給用戶一些時間更改
+  //   setTimeout(() => {
+  //     const newBid = parseFloat(event.target.value);
+  //     if (!checkBidValid(newBid)) {
+  //       event.target.value = (currentBid + 0.0005).toFixed(4); // 輸入無效，恢復預設值
+  //     }
+  //   }, 5000);
+  // };
+
+  // const checkBidValid = (bidValue) => {
+  //   if (bidValue < currentBid + 0.0005) {
+  //     displayMsg(0, "Must be at least 0.0005 BTC higher");
+  //     return false;
+  //   } else {
+  //     setEnteredBid(bidValue); // Update the current bid amount in the component state
+  //     return true;
+  //   }
+  // };
 
   // Function to fetch the initial bid price
   const fetchInitialBidPrice = () => {
@@ -144,7 +164,9 @@ const ProductDetails = () => {
               <span className="price">0.2 BTC</span>
             </div>
             <div className="ratting-price mb-15">
-              {selectedItem.owner}
+              {selectedItem.status === "Sold"
+                ? selectedItem.owner
+                : "Auction Status"}
               <br />
               <span className="price">0x0</span>
             </div>
@@ -155,23 +177,34 @@ const ProductDetails = () => {
             </div>
             {selectedItem.status === "In Progress" && (
               <form action="#" className="add-to-cart pt-35">
-                <div className="bid-input">
+                {/* <div className="bid-input">
                   <input
                     type="number"
                     step="0.0005"
                     min="0"
                     onChange={handleBidChange}
-                    value={enteredBid}
+                    defaultValue={enteredBid}
                   />
                   <span className="btc-unit">BTC</span>
-                </div>
-                <button type="submit" className="theme-btn style-two">
-                  Place Bid{" "}
+                </div> */}
+                <button
+                  type="submit"
+                  className="theme-btn style-two"
+                  disabled={true}
+                >
+                  Take the Bid{" "}
                   <i
                     className="fa-solid fa-gavel"
                     style={{ transform: "rotate(0deg)" }}
                   />
                 </button>
+                {msg && (
+                  <div className="msg-popup" style={msgStyle}>
+                    {" "}
+                    {/* Display error message in a popup */}
+                    <p style={{ margin: "0", width: "100%" }}>{msg}</p>
+                  </div>
+                )}
               </form>
             )}
           </div>

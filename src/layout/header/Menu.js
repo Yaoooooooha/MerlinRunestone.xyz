@@ -23,7 +23,12 @@ const SingleMenu = ({ singleMenu }) => {
         <Link href="/bid-rule">Bid Rule</Link>
       </li>
       <li>
-        <Link href="/claim">Claim</Link>
+        <a className="coming-soon">
+          <p style={{ margin: 0 }}>Claim</p>
+          <p className="coming-soon-p" style={{ margin: 0, display: "none" }}>
+            COMING SOON
+          </p>
+        </a>
       </li>
       {/* <li>
         <a href="#">More</a>

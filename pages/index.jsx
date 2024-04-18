@@ -164,6 +164,14 @@ const IndexSingle = () => {
                     </a>
                   </a>
                   <a legacyBehavior>
+                    {/* <Link
+                      href={"/bid-page"}
+                      className="theme-btn style-two me-4 mt-20"
+                    >
+                      <p style={{ margin: 0 }}>GET RUNEROCK</p>
+
+                      <i className="fa fa-arrow-right" />
+                    </Link> */}
                     <a className="theme-btn style-two me-4 mt-20 coming-soon">
                       <p style={{ margin: 0 }}>GET RUNEROCK</p>
                       <p
@@ -353,10 +361,7 @@ const IndexSingle = () => {
                   />
                 </div>
                 <div className="content">
-                  <p>
-                    Join us every two days for official auctions starting at
-                    ZERO!
-                  </p>
+                  <p>Join us every days for official auctions ends at ZERO!</p>
                   <p>
                     Fall in love with a RUNESTONE? Place the highedt bid and
                     claim your magic.
@@ -408,7 +413,7 @@ const IndexSingle = () => {
                 </div>
                 <div className="content">
                   <p>Missed out on a favorite Runestone?</p>
-                  <p>No worries! Snag it from the NFT marketplace.</p>
+                  <p>No worries! Buy it from the NFT marketplace.</p>
                   <p>The earlier, the better!</p>
                   {/* <Link legacyBehavior href="#">
                     <a className="read-more style-two">

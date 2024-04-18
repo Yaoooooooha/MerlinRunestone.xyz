@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Layout from "@/src/layout/Layout";
-import Link from "next/link";
-import { Nav, Tab } from "react-bootstrap";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/src/config/config";
 import { useAccount } from "wagmi";
 
@@ -43,6 +41,7 @@ const ProductDetails = () => {
   };
 
   const [selectedItem, setSelectedItem] = useState(todayItem);
+  const [activeRule, setActiveRule] = useState(null);
   const selectHandler = (item) => {
     if (item === "yesterday-item") {
       setSelectedItem(yesterdayItem);
@@ -53,74 +52,148 @@ const ProductDetails = () => {
     }
   };
 
+  const toggleRule = (index) => {
+    setActiveRule(index === activeRule ? null : index);
+  };
+
+  const handleRuleClick = (index) => {
+    if (index === activeRule) {
+      setActiveRule(null);
+    } else {
+      setActiveRule(index);
+    }
+  };
+
   return (
     <Layout header={1} singleMenu footer={1} dark>
       {/* Product Details Start */}
-      <section className="product-details pt-130 rpt-100 rel z-1">
+      <section className=" bid-rule pt-130 rpt-100 rel z-1">
         <div className="container container-1290">
-          <Tab.Container defaultActiveKey={"details"}>
-            <Nav className="nav product-information-tab mt-80 mb-25 wow fadeInUp delay-0-2s">
-              <li>
-                <Nav.Link as="a" eventKey="details" href="#details">
-                  Description <i className="far fa-arrow-right" />
-                </Nav.Link>
-              </li>
-              <li>
-                <Nav.Link as="a" eventKey="information" href="#information">
-                  Reviews <i className="far fa-arrow-right" />
-                </Nav.Link>
-              </li>
-            </Nav>
-            <Tab.Content className="tab-content pb-30 wow fadeInUp delay-0-2s">
-              <Tab.Pane className="tab-pane fade" eventKey="details">
+          <h2>AUCTION RULE</h2>
+          <h4>Things You Should Know before Auction</h4>
+          <ul className="pt-10">
+            <li>
+              <span
+                className="rule-title"
+                onClick={() => handleRuleClick(0)}
+                style={{ color: "#8939fa" }}
+              >
+                {" "}
+                One Rock a Day{" "}
+                <i
+                  className="fa-solid fa-gavel"
+                  style={{ transform: "rotate(0deg)" }}
+                />
+              </span>{" "}
+              {activeRule === 0 && (
                 <p>
-                  Must explain to you how all this mistaken idea of denouncing
-                  pleasure and praising pain was born and I will give you a
-                  complete account of the system, and expound the actual
-                  teachings of the great explorer of the truth, the
-                  master-builder of human happiness. No one rejects, dislikes,
-                  or avoids pleasure itself, because it is pleasure, but because
-                  those who do not know how to pursue pleasure rationally
-                  encounter consequences that are extremely painful. Nor again
-                  is there anyone who loves or pursues or desires to obtain pain
-                  of itself, because it is pain, but because occasionally
+                  We auction just one RUNEROCK each day, crafted by Merlin
+                  himself.
                 </p>
-                <br />
-                <h4>Additional information</h4>
+              )}
+            </li>
+            <li>
+              <span
+                className="rule-title"
+                onClick={() => handleRuleClick(1)}
+                style={{ color: "#8533f9" }}
+              >
+                {" "}
+                Start High, End Low{" "}
+                <i
+                  className="fa-solid fa-gavel"
+                  style={{ transform: "rotate(0deg)" }}
+                />
+              </span>{" "}
+              {activeRule === 1 && (
                 <p>
-                  Circumstances occur in which toil and pain can procure him
-                  some great pleasure. To take a trivial example, which of us
-                  ever undertakes laborious physical exercise, except to obtain
-                  some advantage from it? But who has any right to find fault
-                  with a man who chooses
+                  Bids start at double yesterday’s price and drop until they hit
+                  zero.
                 </p>
-                <ul className="list-style-three pt-10">
-                  <li>Graphic Design</li>
-                  <li>3D Illustrations Design</li>
-                  <li>Dashboard Design</li>
-                </ul>
-              </Tab.Pane>
-              <Tab.Pane className="tab-pane fade" eventKey="information">
+              )}
+            </li>
+            <li>
+              <span
+                className="rule-title"
+                onClick={() => handleRuleClick(2)}
+                style={{ color: "#8229fd" }}
+              >
+                {" "}
+                Minimum Start Price{" "}
+                <i
+                  className="fa-solid fa-gavel"
+                  style={{ transform: "rotate(0deg)" }}
+                />
+              </span>{" "}
+              {activeRule === 2 && (
                 <p>
-                  Now wherever you are, wherever you are, you can easily monitor
-                  your CCTV videos through your mobile, tab, laptop or PC. With
-                  the wireless camera, you can view the camera from your mobile
-                  or computer to the right-left 0 to 360-degree video. Cover the
-                  flower room with a camera.
+                  If a RUNEROCK sells for less than 0.0005 BTC, the next day’s
+                  bidding starts at 0.001 BTC.
                 </p>
-                <ul className="list-style-two my-15">
-                  <li>Wide Angle and Long Length</li>
-                  <li>Smart zooming point</li>
-                  <li>HD quality video output.</li>
-                  <li>Smart Alarming System</li>
-                </ul>
+              )}
+            </li>
+            <li>
+              <span
+                className="rule-title"
+                onClick={() => handleRuleClick(3)}
+                style={{ color: "#7a1bfe" }}
+              >
+                {" "}
+                Exclusive for Whitelist{" "}
+                <i
+                  className="fa-solid fa-gavel"
+                  style={{ transform: "rotate(0deg)" }}
+                />
+              </span>{" "}
+              {activeRule === 3 && (
                 <p>
-                  Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                  amet, consectetur, adipisci velit, sed quia non numquam
+                  Anyone can buy a RUNEROCK in the first 12 hours. After that,
+                  only whitelist members (OGs and RUNEROCK holders) get the
+                  chance.
                 </p>
-              </Tab.Pane>
-            </Tab.Content>
-          </Tab.Container>
+              )}
+            </li>
+            <li>
+              <span
+                className="rule-title"
+                onClick={() => handleRuleClick(4)}
+                style={{ color: "#7317fd" }}
+              >
+                {" "}
+                Merlin’s Choice{" "}
+                <i
+                  className="fa-solid fa-gavel"
+                  style={{ transform: "rotate(0deg)" }}
+                />
+              </span>{" "}
+              {activeRule === 4 && (
+                <p>
+                  Not everyone can owned a RUNEROCK. You've got to be picked by
+                  Merlin.
+                </p>
+              )}
+            </li>
+            <li>
+              <span
+                className="rule-title"
+                onClick={() => handleRuleClick(5)}
+                style={{ color: "#6c03ff" }}
+              >
+                {" "}
+                Win and Become Favored{" "}
+                <i
+                  className="fa-solid fa-gavel"
+                  style={{ transform: "rotate(0deg)" }}
+                />
+              </span>{" "}
+              {activeRule === 5 && (
+                <p>
+                  Win a bid and you're in with Merlin, earning perks better than
+                  OG.
+                </p>
+              )}
+            </li>
+          </ul>
         </div>
       </section>
     </Layout>
