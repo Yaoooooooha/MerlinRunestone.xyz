@@ -168,7 +168,7 @@ const ProductDetails = () => {
               </span>{" "}
               {activeRule === 4 && (
                 <p>
-                  Not everyone can owned a RUNEROCK. You've got to be picked by
+                  Not everyone can own a RUNEROCK. You've got to be picked by
                   Merlin.
                 </p>
               )}

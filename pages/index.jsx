@@ -37,20 +37,26 @@ const IndexSingle = () => {
             </div>
           </div>
           <div className="col-lg-12 mt-20 mb-20 early-access">
-            <div className="theme-btn style-two wow fadeInLeft delay-0-2s early-access-btn">
-              <div className="menu-sidebar">
+            <div className="theme-btn style-two wow fadeInLeft delay-0-2s early-access-btn coming-soon">
+              {/* <div className="menu-sidebar ">
                 <Link
                   href={"#"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .querySelector("body")
-                      .classList.add("side-content-visible");
-                  }}
-                >
-                  EARLY ACCESS
-                </Link>
-              </div>
+                  // onClick={(e) => {
+                  //   e.preventDefault();
+                  //   document
+                  //     .querySelector("body")
+                  //     .classList.add("side-content-visible");
+                  // }}
+                > */}
+              <p style={{ margin: 0 }}>EARLY ACCESS</p>
+              <p
+                className="coming-soon-p"
+                style={{ margin: 0, display: "none" }}
+              >
+                Access Closed...
+              </p>
+              {/* </Link>
+              </div> */}
             </div>
           </div>
         </div>
