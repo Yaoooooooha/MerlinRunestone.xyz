@@ -22,7 +22,7 @@ import {
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-import { merlinChain } from "@/src/config/chains";
+import { merlinChain, merlinChainTestnet } from "@/src/config/chains";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function App({ Component, pageProps }) {
   const config = getDefaultConfig({
     appName: "MerlinERA",
     projectId: "dbe4b41c2ff694a2c782c8f9efc5347f",
-    chains: [merlinChain],
+    chains: [merlinChain, merlinChainTestnet],
     connectors,
     ssr: true, // If your dApp uses server side rendering (SSR)
   });

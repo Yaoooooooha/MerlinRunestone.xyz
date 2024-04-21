@@ -53,19 +53,9 @@ export default function ConnectWalletBtn() {
 
                 return (
                   <div style={{ display: "flex", gap: 12 }}>
-                    {/* <button
+                    <button
                       onClick={openChainModal}
                       className="connect-wallet-btn"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        background:
-                          "url(assets/images/mint-page/operate-buy.png), linear-gradient(to bottom, #f7dcb100, #e39f5b),radial-gradient(circle, #f9e3c200, #f0d6b5), rgba(255, 255, 212, 0.3)",
-                        backgroundPosition: "center",
-                        backgroundSize: "auto",
-                        backgroundRepeat: "no-repeat",
-                        opacity: 0.83,
-                      }}
                       type="button"
                     >
                       {chain.hasIcon && (
@@ -89,7 +79,7 @@ export default function ConnectWalletBtn() {
                         </div>
                       )}
                       {chain.name}
-                    </button> */}
+                    </button>
 
                     <button
                       onClick={openAccountModal}

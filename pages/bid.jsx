@@ -1,14 +1,52 @@
 import { useState, useEffect } from "react";
 import Layout from "@/src/layout/Layout";
 import { Nav, Tab } from "react-bootstrap";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/src/config/config";
+import {
+  RUNEROCK_CONTRACT_ADDRESS,
+  RUNEROCK_CONTRACT_ABI,
+} from "@/src/config/runerockConfig";
+import {
+  AUCTION_CONTRACT_ADDRESS,
+  AUCTION_CONTRACT_ABI,
+} from "@/src/config/runerockAuctionConfig";
 import { useAccount } from "wagmi";
+import { useEthersSigner } from "@/src/config/ethersSigner";
+import { ethers } from "ethers";
 
 const ProductDetails = () => {
   const { address } = useAccount();
+  const signer = useEthersSigner(); // `useSigner` hook from wagmi to get the connected signer
   // 提示訊息
   const [msg, setMsg] = useState(null);
   const [msgStyle, setMsgStyle] = useState({});
+  const [isWhitelisted, setIsWhitelisted] = useState(true); // Assume initially whitelisted
+
+  useEffect(() => {
+    const verifyWhitelist = async () => {
+      try {
+        const response = await fetch("/api/verifyWhitelist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            evmAddress: address.toLowerCase(),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        const data = await response.json();
+        // setIsWhitelisted(response); // Update whitelisted state based on backend response
+        console.log("Whitelisted:", response);
+        console.log("data:", data);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
+    verifyWhitelist();
+  }, [address]);
 
   // 處理訊息的函數
   const displayMsg = (noError, message) => {
@@ -92,6 +130,59 @@ const ProductDetails = () => {
   const fetchInitialBidPrice = () => {
     // Fetch the initial bid price, e.g., from an API
     return 0.0005;
+  };
+
+  const takeBid = async () => {
+    if (signer && address) {
+      const contract = new ethers.Contract(
+        AUCTION_CONTRACT_ADDRESS,
+        AUCTION_CONTRACT_ABI,
+        signer
+      );
+
+      let gasEstimate;
+      let hasGasEstimate;
+      try {
+        gasEstimate = await contract.estimateGas.takeBid({
+          value: ethers.utils.parseEther("0.001"),
+        }); // Assuming mint function requires address and quantity
+        console.log(`Estimated gas: ${gasEstimate.toString()}`);
+        hasGasEstimate = true;
+      } catch (e) {
+        console.error("Error estimating gas:", e);
+        if (
+          e.message ===
+          'insufficient funds for intrinsic transaction cost [ See: https://links.ethers.org/v5-errors-INSUFFICIENT_FUNDS ] (error={"code":-32000,"message":"insufficient funds for gas * price + value"}, method="estimateGas", transaction={"from":"0xe8c954E7f2e060618d9734D438670246e0dBEB2E","to":"0xdDA7f85Bf98b64933C58F4D4Df9E3C78686e6071","value":{"type":"BigNumber","hex":"0x048c27395000"},"data":"0xd204c45e000000000000000000000000e8c954e7f2e060618d9734d438670246e0dbeb2e000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000076170692f61706900000000000000000000000000000000000000000000000000","accessList":null}, code=INSUFFICIENT_FUNDS, version=providers/5.7.2)'
+        ) {
+          displayMsg(
+            0,
+            "Insufficient funds. Please add more funds to your wallet."
+          ); // Display error message}
+        } else {
+          displayMsg(0, e.message); // Display error message}
+        }
+      }
+
+      try {
+        const txResponse = await contract.takeBid({
+          value: ethers.utils.parseEther("0.001"),
+          gasLimit: Math.floor(
+            parseInt(ethers.utils.hexlify(gasEstimate), 16) * 1.2
+          ),
+          // gasPrice:
+          //   ethers.utils.parseUnits(ethers.utils.hexlify(gasEstimate), "gwei") *
+          //   1.5,
+          // value: ethers.utils.parseEther("0.000005"),
+        }); // Assuming mint function requires address and quantity
+        await txResponse.wait(); // Wait for transaction to be mined
+        console.log("Minting successful");
+        displayMsg(1, "Minting successful");
+      } catch (e) {
+        console.error("Error minting token:", e);
+        // 如果在 estimateGas 中出現錯誤訊息，則不會進入到這裡，因此需要額外處理
+        hasGasEstimate && displayMsg(0, e.message);
+      }
+    }
   };
 
   return (
@@ -188,9 +279,10 @@ const ProductDetails = () => {
                   <span className="btc-unit">BTC</span>
                 </div> */}
                 <button
-                  type="submit"
+                  type="button"
                   className="theme-btn style-two"
-                  disabled={true}
+                  onClick={takeBid}
+                  // disabled={true}
                 >
                   Take the Bid{" "}
                   <i
@@ -322,6 +414,13 @@ const ProductDetails = () => {
       </section> */}
       {/* Related Products Area end */}
       {/* footer area start */}
+      {msg && (
+        <div className="msg-popup" style={msgStyle}>
+          {" "}
+          {/* Display error message in a popup */}
+          <p style={{ margin: "10px 20px", width: "100%" }}>{msg}</p>
+        </div>
+      )}
     </Layout>
   );
 };

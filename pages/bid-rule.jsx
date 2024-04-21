@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "@/src/layout/Layout";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/src/config/config";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "@/src/config/runerockConfig";
 import { useAccount } from "wagmi";
 
 const ProductDetails = () => {
