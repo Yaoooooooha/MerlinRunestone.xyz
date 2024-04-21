@@ -23,26 +23,30 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const verifyWhitelist = async () => {
-      try {
-        const response = await fetch("/api/verifyWhitelist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            evmAddress: address.toLowerCase(),
-          }),
-        });
+      if (address) {
+        try {
+          const response = await fetch("/api/verifyWhitelist", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              evmAddress: address.toLowerCase(),
+            }),
+          });
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok " + response.statusText);
+          if (!response.ok) {
+            throw new Error(
+              "Network response was not ok " + response.statusText
+            );
+          }
+          const data = await response.json();
+          // setIsWhitelisted(response); // Update whitelisted state based on backend response
+          console.log("Whitelisted:", response);
+          console.log("data:", data);
+        } catch (error) {
+          console.error("Failed to fetch data:", error);
         }
-        const data = await response.json();
-        // setIsWhitelisted(response); // Update whitelisted state based on backend response
-        console.log("Whitelisted:", response);
-        console.log("data:", data);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
       }
     };
     verifyWhitelist();
