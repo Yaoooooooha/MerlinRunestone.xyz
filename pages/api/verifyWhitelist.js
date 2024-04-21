@@ -16,12 +16,14 @@ export default async function handler(req, res) {
     `;
 
     if (existingUsers.length > 0) {
+      console.log("Whitelisted");
       return res.status(200).json({
         whitelistStatus: true,
         message: "Wallet Address is whitelisted.",
       });
     } else {
-      return res.status(404).json({
+      console.log("Not Whitelisted");
+      return res.status(200).json({
         whitelistStatus: false,
         message: "Wallet Address is not whitelisted.",
       });

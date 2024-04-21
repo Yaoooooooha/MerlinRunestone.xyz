@@ -1,5 +1,5 @@
 export const AUCTION_CONTRACT_ADDRESS =
-  "0x0221C63265806a1610331281036A1C2807521000";
+  "0x7749FB11301F959b963a720591fE26094B4a068b";
 
 export const AUCTION_CONTRACT_ABI = [
   {
@@ -209,6 +209,19 @@ export const AUCTION_CONTRACT_ABI = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isPrivateSale",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
       },
     ],
     stateMutability: "view",

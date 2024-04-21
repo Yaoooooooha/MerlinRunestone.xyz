@@ -14,43 +14,9 @@ import { useEthersSigner } from "@/src/config/ethersSigner";
 import { ethers } from "ethers";
 
 const ProductDetails = () => {
-  const { address } = useAccount();
-  const signer = useEthersSigner(); // `useSigner` hook from wagmi to get the connected signer
   // 提示訊息
   const [msg, setMsg] = useState(null);
   const [msgStyle, setMsgStyle] = useState({});
-  const [isWhitelisted, setIsWhitelisted] = useState(true); // Assume initially whitelisted
-
-  useEffect(() => {
-    const verifyWhitelist = async () => {
-      if (address) {
-        try {
-          const response = await fetch("/api/verifyWhitelist", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              evmAddress: address.toLowerCase(),
-            }),
-          });
-
-          if (!response.ok) {
-            throw new Error(
-              "Network response was not ok " + response.statusText
-            );
-          }
-          const data = await response.json();
-          // setIsWhitelisted(response); // Update whitelisted state based on backend response
-          console.log("Whitelisted:", response);
-          console.log("data:", data);
-        } catch (error) {
-          console.error("Failed to fetch data:", error);
-        }
-      }
-    };
-    verifyWhitelist();
-  }, [address]);
 
   // 處理訊息的函數
   const displayMsg = (noError, message) => {
@@ -62,33 +28,178 @@ const ProductDetails = () => {
     }, 5000); // Error message disappears after 5 seconds
   };
 
-  const todayItem = {
-    title: "RUNEROCK #1",
-    image: "assets/images/bid/today-item.jpeg",
-    price: "Now Price",
-    startTime: "4/20 00:00 UTC",
-    remainTime: "Ends In",
-    status: "In Progress",
+  const { address } = useAccount();
+  const signer = useEthersSigner(); // `useSigner` hook from wagmi to get the connected signer
+  const merlinRPC = "https://testnet-rpc.merlinchain.io";
+  const provider = new ethers.providers.JsonRpcProvider(merlinRPC);
+  const auctionContract = new ethers.Contract(
+    AUCTION_CONTRACT_ADDRESS,
+    AUCTION_CONTRACT_ABI,
+    provider
+  );
+  const runeContract = new ethers.Contract(
+    RUNEROCK_CONTRACT_ADDRESS,
+    RUNEROCK_CONTRACT_ABI,
+    provider
+  );
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // 确保代码在客户端执行
+      const onBidTaken = async (bidTaker, price, event) => {
+        console.log("Bid taken by", bidTaker, "for", price, "wei");
+        const now = Date.now();
+        const date = new Date(now);
+        let nextStartTime = await getStartTime();
+        let nextMintId = await getNextMintId();
+        let startPrice = await getStartPrice();
+        let auctionDuration = await getAuctionDuration();
+
+        setItemList([
+          {
+            title: itemList[1].title,
+            image: itemList[1].image,
+            priceTitle: "Sold Price",
+            price: price,
+            ownerTitle: "Owned By",
+            owner: bidTaker,
+            remainTimeTitle: "Auction Ends At",
+            remainTime: `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${
+              date.getUTCDate() +
+              " " +
+              date.getUTCHours() +
+              ":" +
+              (date.getUTCMinutes().toString().length === 1
+                ? "0" + date.getUTCMinutes()
+                : date.getUTCMinutes())
+            } UTC`,
+            status: "Sold",
+          },
+          {
+            title: itemList[2].title,
+            image: itemList[2].image,
+            priceTitle: "Now Price",
+            price: startPrice,
+            startTime: nextStartTime,
+            remainTimeTitle: "Ends In",
+            remainTime: "代訂",
+            status: "In Progress",
+          },
+          {
+            title: "RUNEROCK #" + nextMintId.toString(),
+            image: "assets/images/bid/" + nextMintId.toString() + ".png",
+            priceTitle: "Minimum Start Price",
+            price: 0.001,
+            startTime: nextStartTime + auctionDuration,
+            remainTimeTitle: "Starts In",
+            remainTime: "代訂",
+            status: "Preparing",
+          },
+        ]);
+      };
+
+      auctionContract.on("BidTaken", onBidTaken);
+
+      // 清除事件监听器
+      return () => {
+        auctionContract.off("BidTaken", onBidTaken);
+      };
+    }
+  }, []);
+  const getStartTime = async () => {
+    try {
+      const result = await auctionContract.auctionStartTime();
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
   };
-  const yesterdayItem = {
-    title: "RUNEROCK #0",
-    image: "assets/images/bid/yesterday-item.jpeg",
-    price: "Sold Price",
-    owner: "Owned By",
-    startTime: "4/19 00:00 UTC",
-    remainTime: "Auction Ends At",
-    status: "Sold",
+  const getNextMintId = async () => {
+    try {
+      const result = await runeContract.nextMintId();
+      console.log("nextMintId:", result.toNumber());
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
   };
-  const tommorowItem = {
-    title: "RUNEROCK #2",
-    image: "assets/images/bid/tommorow-item.jpeg",
-    price: "Start Price",
-    startTime: "4/21 00:00 UTC",
-    remainTime: "Start In",
-    status: "Preparing",
+  const getStartPrice = async () => {
+    try {
+      const result = await runeContract.startPrice();
+      console.log("startPrice:", result.toNumber());
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  const getAuctionDuration = async () => {
+    try {
+      const result = await auctionContract.auctionDuration();
+      console.log("auctionDuration:", result.toNumber());
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
   };
 
+  const [currentPrice, setCurrentPrice] = useState(0.001); // 默认状态
+  const getCurrentPrice = async () => {
+    try {
+      const result = await auctionContract.getCurrentPrice();
+      return result.toNumber(); // 返回当前价格
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  const fetchCurrentPrice = async () => {
+    const price = await getCurrentPrice();
+    setCurrentPrice(price / 10 ** 18); // 返回当前价格
+  };
+  useEffect(() => {
+    fetchCurrentPrice();
+  });
+
+  const [itemList, setItemList] = useState([
+    {
+      title: "",
+      image: "",
+      priceTitle: "Sold Price",
+      price: "",
+      ownerTitle: "Owned By",
+      owner: "",
+      remainTimeTitle: "Auction Ends At",
+      remainTime: "",
+      status: "Sold",
+    },
+    {
+      title: "RUNEROCK #11",
+      image: "assets/images/bid/11.png",
+      priceTitle: "Now Price",
+      price: currentPrice,
+      startTime: 1713808800,
+      remainTimeTitle: "Ends In",
+      remainTime: "代訂",
+      status: "In Progress",
+    },
+
+    {
+      title: "RUNEROCK #12",
+      image: "assets/images/bid/12.png",
+      priceTitle: "Minimum Start Price",
+      price: 0.001,
+      startTime: 1713895200,
+      remainTimeTitle: "Starts In",
+      remainTime: "代訂",
+      status: "Preparing",
+    },
+  ]);
+
+  const yesterdayItem = itemList[0];
+  const todayItem = itemList[1];
+  const tommorowItem = itemList[2];
+
   const [selectedItem, setSelectedItem] = useState(todayItem);
+  const [auctionStatus, setAuctionStatus] = useState("Preparing"); // 默认状态
   const selectHandler = (item) => {
     if (item === "yesterday-item") {
       setSelectedItem(yesterdayItem);
@@ -98,93 +209,139 @@ const ProductDetails = () => {
       setSelectedItem(tommorowItem);
     }
   };
-
-  // Inside your Next.js component
-  const currentBid = 0; // Replace with the current bid amount from the contract
-  // Inside your Next.js component
-  const [enteredBid, setEnteredBid] = useState(0);
-
+  // 用來處理 selectItem 的 auctionStatus
   useEffect(() => {
-    // Fetch and set the initial bid price, e.g., from an API
-    const initialBidPrice = fetchInitialBidPrice(); // Replace with your fetch logic
-    setEnteredBid(initialBidPrice);
-  }, []);
+    const fetchAuctionStatus = async () => {
+      if (selectedItem.status === "Sold") {
+        setAuctionStatus(selectedItem.owner);
+      } else if (selectedItem.status === "Preparing") {
+        setAuctionStatus("Preparing");
+      } else {
+        // 异步检查拍卖是否进行中
+        const isLive = await checkAuctionIsLive();
+        setAuctionStatus(isLive ? "In Progress" : "Preparing");
+      }
+    };
 
-  // const handleBidChange = (event) => {
-  //   // 給用戶一些時間更改
-  //   setTimeout(() => {
-  //     const newBid = parseFloat(event.target.value);
-  //     if (!checkBidValid(newBid)) {
-  //       event.target.value = (currentBid + 0.0005).toFixed(4); // 輸入無效，恢復預設值
-  //     }
-  //   }, 5000);
-  // };
+    fetchAuctionStatus();
+  }, [selectedItem]); // 当 selectedItem 更改时重新执行
 
-  // const checkBidValid = (bidValue) => {
-  //   if (bidValue < currentBid + 0.0005) {
-  //     displayMsg(0, "Must be at least 0.0005 BTC higher");
-  //     return false;
-  //   } else {
-  //     setEnteredBid(bidValue); // Update the current bid amount in the component state
-  //     return true;
-  //   }
-  // };
-
-  // Function to fetch the initial bid price
-  const fetchInitialBidPrice = () => {
-    // Fetch the initial bid price, e.g., from an API
-    return 0.0005;
+  const checkIsPrivateSale = async () => {
+    try {
+      const result = await auctionContract.isPrivateSale(); // 替換為你的函數名稱
+      return result;
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
   };
+  const [isWhitelisted, setIsWhitelisted] = useState(true); // Assume initially whitelisted
+  const verifyWhitelist = async () => {
+    if (address) {
+      try {
+        const response = await fetch("/api/verifyWhitelist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            evmAddress: address.toLowerCase(),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        const data = await response.json();
+        setIsWhitelisted(data.whitelistStatus);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    // 定义一个异步函数内部执行异步操作
+    const checkAndVerify = async () => {
+      // 如果是 PrivateSale 就要确认用户是否是白名单
+      if (await checkIsPrivateSale()) {
+        verifyWhitelist();
+      }
+    };
+    // 调用异步函数
+    checkAndVerify();
+  }, [address]);
+
+  const [auctionLive, setAuctionLive] = useState(false); // 默认状态
+  const checkAuctionIsLive = async () => {
+    try {
+      const result = await auctionContract.auctionIsLive();
+      return result;
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  const fetchAuctionLive = async () => {
+    const isLive = await checkAuctionIsLive();
+    setAuctionLive(isLive);
+  };
+  useEffect(() => {
+    fetchAuctionLive();
+  });
+
+  console.log(auctionLive, isWhitelisted);
 
   const takeBid = async () => {
-    if (signer && address) {
-      const contract = new ethers.Contract(
-        AUCTION_CONTRACT_ADDRESS,
-        AUCTION_CONTRACT_ABI,
-        signer
-      );
+    fetchAuctionLive(); // 刷新 auctionLive 状态
+    if (auctionLive) {
+      fetchCurrentPrice(); // 刷新 currentPrice 状态
+      if (signer && address) {
+        const contract = new ethers.Contract(
+          AUCTION_CONTRACT_ADDRESS,
+          AUCTION_CONTRACT_ABI,
+          signer
+        );
 
-      let gasEstimate;
-      let hasGasEstimate;
-      try {
-        gasEstimate = await contract.estimateGas.takeBid({
-          value: ethers.utils.parseEther("0.001"),
-        }); // Assuming mint function requires address and quantity
-        console.log(`Estimated gas: ${gasEstimate.toString()}`);
-        hasGasEstimate = true;
-      } catch (e) {
-        console.error("Error estimating gas:", e);
-        if (
-          e.message ===
-          'insufficient funds for intrinsic transaction cost [ See: https://links.ethers.org/v5-errors-INSUFFICIENT_FUNDS ] (error={"code":-32000,"message":"insufficient funds for gas * price + value"}, method="estimateGas", transaction={"from":"0xe8c954E7f2e060618d9734D438670246e0dBEB2E","to":"0xdDA7f85Bf98b64933C58F4D4Df9E3C78686e6071","value":{"type":"BigNumber","hex":"0x048c27395000"},"data":"0xd204c45e000000000000000000000000e8c954e7f2e060618d9734d438670246e0dbeb2e000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000076170692f61706900000000000000000000000000000000000000000000000000","accessList":null}, code=INSUFFICIENT_FUNDS, version=providers/5.7.2)'
-        ) {
-          displayMsg(
-            0,
-            "Insufficient funds. Please add more funds to your wallet."
-          ); // Display error message}
-        } else {
-          displayMsg(0, e.message); // Display error message}
+        let gasEstimate;
+        let hasGasEstimate;
+        try {
+          gasEstimate = await contract.estimateGas.takeBid({
+            value: ethers.utils.parseEther("0.001"),
+          }); // Assuming mint function requires address and quantity
+          console.log(`Estimated gas: ${gasEstimate.toString()}`);
+          hasGasEstimate = true;
+        } catch (e) {
+          console.error("Error estimating gas:", e);
+          if (
+            e.message ===
+            'insufficient funds for intrinsic transaction cost [ See: https://links.ethers.org/v5-errors-INSUFFICIENT_FUNDS ] (error={"code":-32000,"message":"insufficient funds for gas * price + value"}, method="estimateGas", transaction={"from":"0xe8c954E7f2e060618d9734D438670246e0dBEB2E","to":"0xdDA7f85Bf98b64933C58F4D4Df9E3C78686e6071","value":{"type":"BigNumber","hex":"0x048c27395000"},"data":"0xd204c45e000000000000000000000000e8c954e7f2e060618d9734d438670246e0dbeb2e000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000076170692f61706900000000000000000000000000000000000000000000000000","accessList":null}, code=INSUFFICIENT_FUNDS, version=providers/5.7.2)'
+          ) {
+            displayMsg(
+              0,
+              "Insufficient funds. Please add more funds to your wallet."
+            ); // Display error message}
+          } else {
+            displayMsg(0, e.message); // Display error message}
+          }
         }
-      }
 
-      try {
-        const txResponse = await contract.takeBid({
-          value: ethers.utils.parseEther("0.001"),
-          gasLimit: Math.floor(
-            parseInt(ethers.utils.hexlify(gasEstimate), 16) * 1.2
-          ),
-          // gasPrice:
-          //   ethers.utils.parseUnits(ethers.utils.hexlify(gasEstimate), "gwei") *
-          //   1.5,
-          // value: ethers.utils.parseEther("0.000005"),
-        }); // Assuming mint function requires address and quantity
-        await txResponse.wait(); // Wait for transaction to be mined
-        console.log("Minting successful");
-        displayMsg(1, "Minting successful");
-      } catch (e) {
-        console.error("Error minting token:", e);
-        // 如果在 estimateGas 中出現錯誤訊息，則不會進入到這裡，因此需要額外處理
-        hasGasEstimate && displayMsg(0, e.message);
+        try {
+          const txResponse = await contract.takeBid({
+            value: ethers.utils.parseEther(currentPrice.toString()),
+            gasLimit: Math.floor(
+              parseInt(ethers.utils.hexlify(gasEstimate), 16) * 1.2
+            ),
+            // gasPrice:
+            //   ethers.utils.parseUnits(ethers.utils.hexlify(gasEstimate), "gwei") *
+            //   1.5,
+            // value: ethers.utils.parseEther("0.000005"),
+          }); // Assuming mint function requires address and quantity
+          await txResponse.wait(); // Wait for transaction to be mined
+          console.log("Minting successful");
+          displayMsg(1, "Minting successful");
+        } catch (e) {
+          console.error("Error minting token:", e);
+          // 如果在 estimateGas 中出現錯誤訊息，則不會進入到這裡，因此需要額外處理
+          hasGasEstimate && displayMsg(0, e.message);
+        }
       }
     }
   };
@@ -254,19 +411,19 @@ const ProductDetails = () => {
               <h2>{selectedItem.title}</h2>
             </div>
             <div className="ratting-price mb-15">
-              {selectedItem.price}
+              {selectedItem.priceTitle}
               <br />
-              <span className="price">0.2 BTC</span>
+              <span className="price">{selectedItem.price} BTC</span>
             </div>
             <div className="ratting-price mb-15">
               {selectedItem.status === "Sold"
-                ? selectedItem.owner
+                ? selectedItem.ownerTitle
                 : "Auction Status"}
               <br />
-              <span className="price">0x0</span>
+              <span className="price">{auctionStatus}</span>
             </div>
             <div className="ratting-price mb-15">
-              {selectedItem.remainTime}
+              {selectedItem.remainTimeTitle}
               <br />
               <span className="price">1 hr</span>
             </div>
@@ -286,12 +443,29 @@ const ProductDetails = () => {
                   type="button"
                   className="theme-btn style-two"
                   onClick={takeBid}
-                  // disabled={true}
+                  disabled={!auctionLive || !isWhitelisted}
                 >
-                  Take the Bid{" "}
+                  <p
+                    style={
+                      isWhitelisted ? { margin: "0" } : { display: "none" }
+                    }
+                  >
+                    Take the Bid
+                  </p>
+                  <p
+                    style={
+                      isWhitelisted ? { display: "none" } : { margin: "0" }
+                    }
+                  >
+                    NOT WHITELISTED
+                  </p>
                   <i
                     className="fa-solid fa-gavel"
-                    style={{ transform: "rotate(0deg)" }}
+                    style={
+                      isWhitelisted
+                        ? { transform: "rotate(0deg)" }
+                        : { display: "none" }
+                    }
                   />
                 </button>
                 {msg && (
