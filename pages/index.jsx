@@ -53,7 +53,7 @@ const IndexSingle = () => {
                 className="coming-soon-p"
                 style={{ margin: 0, display: "none" }}
               >
-                Access Closed...
+                ACCESS CLOSED...
               </p>
               {/* </Link>
               </div> */}
