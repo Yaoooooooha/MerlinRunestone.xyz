@@ -180,7 +180,7 @@ const ProductDetails = () => {
     const refreshPrice = setInterval(() => {
       fetchCurrentPrice();
       console.log("Current price refreshed");
-    }, 180000); // 每 3 分钟刷新一次
+    }, 90000); // 1.5 分钟刷新一次
     return () => clearInterval(refreshPrice);
   }, []);
 
@@ -269,8 +269,9 @@ const ProductDetails = () => {
         } catch (e) {
           console.error("Error estimating gas:", e);
           if (
-            e.message.toString().slice(0, 49) ===
-            "insufficient funds for intrinsic transaction cost"
+            e.message
+              .toString()
+              .includes("insufficient funds for intrinsic transaction cost")
           ) {
             displayMsg(
               0,
@@ -298,13 +299,12 @@ const ProductDetails = () => {
         } catch (e) {
           console.error("Error minting token:", e);
           // 如果在 estimateGas 中出現錯誤訊息，則不會進入到這裡，因此需要額外處理
-          if (
-            hasGasEstimate &&
-            e.message.toString().slice(0, 25) === "user rejected transaction"
-          ) {
-            displayMsg(0, "Please approve the transaction in your wallet."); // Display error message}
-          } else {
-            displayMsg(0, e.message);
+          if (hasGasEstimate) {
+            if (e.message.toString().includes("user rejected transaction")) {
+              displayMsg(0, "Please approve the transaction in your wallet."); // Display error message}
+            } else {
+              displayMsg(0, e.message);
+            }
           }
         }
       }
@@ -406,6 +406,7 @@ const ProductDetails = () => {
                     startTime={auctionStartTime * 1000} // Convert to milliseconds
                     endTime={(auctionStartTime + auctionDuration) * 1000}
                     setCountdownEnd={setCountdownEnd}
+                    countdownEnd={countdownEnd}
                   />
                 )}
               </span>
