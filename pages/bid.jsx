@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Layout from "@/src/layout/Layout";
 import { Nav, Tab } from "react-bootstrap";
 import EventCountdown from "@/src/components/CountDown";
@@ -44,7 +44,7 @@ const ProductDetails = () => {
     provider
   );
 
-  // 初次渲染時都要抓取下一個 mintId
+  // 每次渲染時都要抓取下一個 mintId
   const [nextMintId, setNextMintId] = useState(11);
   const getNextMintId = async () => {
     try {
@@ -58,8 +58,24 @@ const ProductDetails = () => {
   };
   useEffect(() => {
     getNextMintId();
-  }, []);
+  });
   console.log("nextMintId:", nextMintId);
+  // 每次渲染時都要抓取 startPrice
+  const [startPrice, setStartPrice] = useState(0.001);
+  const getStartPrice = async () => {
+    try {
+      const result = await auctionContract.startPrice();
+      setStartPrice(result.toNumber() / 10 ** 18);
+      console.log("startPrice:", result.toNumber() / 10 ** 18);
+      return result.toNumber() / 10 ** 18;
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  useEffect(() => {
+    getStartPrice();
+  });
+  console.log("startPrice:", startPrice);
   // 初次渲染時都要抓取 auctionStartTime
   const [auctionStartTime, setAuctioStartTime] = useState(0);
   const getStartTime = async () => {
@@ -95,7 +111,6 @@ const ProductDetails = () => {
   const [soldPrice, setSoldPrice] = useState(null);
   const [soldTime, setSoldTime] = useState(null);
   const [isSold, setIsSold] = useState(false);
-  const [startPrice, setStartPrice] = useState(null);
   const minimumStartPrice = 0.001;
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -106,8 +121,8 @@ const ProductDetails = () => {
         console.log("Bid taken by", bidTaker, "for", price, "wei");
         console.log(event);
         setIsSold(true);
-        setBidTaker(bidTaker);
-        setSoldPrice(price);
+        setBidTaker(bidTaker.slice(0, 8) + "..." + bidTaker.slice(-6));
+        setSoldPrice(price / 10 ** 18);
 
         const now = Date.now();
         const date = new Date(now);
@@ -119,7 +134,11 @@ const ProductDetails = () => {
             ":" +
             (date.getUTCMinutes().toString().length === 1
               ? "0" + date.getUTCMinutes()
-              : date.getUTCMinutes())
+              : date.getUTCMinutes()) +
+            ":" +
+            (date.getUTCSeconds().toString().length === 1
+              ? "0" + date.getUTCSeconds()
+              : date.getUTCSeconds())
           } UTC`
         );
 
@@ -155,6 +174,15 @@ const ProductDetails = () => {
   useEffect(() => {
     fetchCurrentPrice();
   });
+  // 每間隔一段時間就重新抓取一次 currentPrice
+  const [countdownEnd, setCountdownEnd] = useState(false);
+  useEffect(() => {
+    const refreshPrice = setInterval(() => {
+      fetchCurrentPrice();
+      console.log("Current price refreshed");
+    }, 180000); // 每 3 分钟刷新一次
+    return () => clearInterval(refreshPrice);
+  }, []);
 
   const checkIsPrivateSale = async () => {
     try {
@@ -377,6 +405,7 @@ const ProductDetails = () => {
                   <EventCountdown
                     startTime={auctionStartTime * 1000} // Convert to milliseconds
                     endTime={(auctionStartTime + auctionDuration) * 1000}
+                    setCountdownEnd={setCountdownEnd}
                   />
                 )}
               </span>

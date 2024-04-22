@@ -28,7 +28,7 @@ const DefaultFooter = ({ dark }) => {
                 <a href="https://twitter.com/MerlinRUNESTONE" target="_blank">
                   <i className="fab fa-x-twitter" /> <span>Twitter</span>
                 </a>
-                <a href="#" target="_blank">
+                <a href="https://t.me/merlinRUNESTONE" target="_blank">
                   <i className="fa-regular fa-paper-plane" />
                   <span>Telegram</span>
                 </a>

@@ -95,7 +95,7 @@ const SideBar = () => {
             <a href="https://twitter.com/MerlinRUNESTONE" target="_blank">
               <i className="fab fa-x-twitter" />
             </a>
-            <a href="#" target="_blank">
+            <a href="https://t.me/merlinRUNESTONE" target="_blank">
               <i className="fa-regular fa-paper-plane" />
             </a>
           </div>
