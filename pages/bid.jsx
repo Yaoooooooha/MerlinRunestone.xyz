@@ -1,7 +1,7 @@
 import { useState, useEffect, use } from "react";
 import Layout from "@/src/layout/Layout";
 import { Nav, Tab } from "react-bootstrap";
-import EventCountdown from "@/src/components/CountDown";
+import EventCountdown from "@/src/components/Countdown";
 import {
   RUNEROCK_CONTRACT_ADDRESS,
   RUNEROCK_CONTRACT_ABI,
