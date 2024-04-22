@@ -48,11 +48,11 @@ function EventCountdown({ startTime, endTime, setCountdownEnd, countdownEnd }) {
     }
 
     if (h > 0) {
-      return `${h}:${m}:${s}`;
+      return `${h} : ${m} : ${s}`;
     } else if (m > 0) {
-      return `${m}:${s}`;
+      return `${m} : ${s}`;
     } else {
-      return `00:${s}`;
+      return `00 : ${s}`;
     }
   }
 

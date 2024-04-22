@@ -131,11 +131,11 @@ const ProductDetails = () => {
             date.getUTCDate() +
             " " +
             date.getUTCHours() +
-            ":" +
+            " : " +
             (date.getUTCMinutes().toString().length === 1
               ? "0" + date.getUTCMinutes()
               : date.getUTCMinutes()) +
-            ":" +
+            " : " +
             (date.getUTCSeconds().toString().length === 1
               ? "0" + date.getUTCSeconds()
               : date.getUTCSeconds())
