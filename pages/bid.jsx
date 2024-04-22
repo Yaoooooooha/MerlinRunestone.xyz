@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "@/src/layout/Layout";
 import { Nav, Tab } from "react-bootstrap";
+import EventCountdown from "@/src/components/CountDown";
 import {
   RUNEROCK_CONTRACT_ADDRESS,
   RUNEROCK_CONTRACT_ABI,
@@ -20,8 +21,8 @@ const ProductDetails = () => {
 
   // 處理訊息的函數
   const displayMsg = (noError, message) => {
-    const color = noError ? "rgba(0, 255, 0, 0.651)" : "rgba(255, 0, 0, 0.651)";
-    setMsgStyle({ color });
+    const backgroundColor = noError ? "#aadac4aa" : "#7877cbaa";
+    setMsgStyle({ backgroundColor });
     setMsg(message);
     setTimeout(() => {
       setMsg(null);
@@ -58,7 +59,37 @@ const ProductDetails = () => {
   useEffect(() => {
     getNextMintId();
   }, []);
-  console.log(nextMintId);
+  console.log("nextMintId:", nextMintId);
+  // 初次渲染時都要抓取 auctionStartTime
+  const [auctionStartTime, setAuctioStartTime] = useState(0);
+  const getStartTime = async () => {
+    try {
+      const result = await auctionContract.auctionStartTime();
+      setAuctioStartTime(result.toNumber());
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  useEffect(() => {
+    getStartTime();
+  }, []);
+  console.log("auctionStartTime:", auctionStartTime);
+  // 初次渲染時都要抓取 auctionDuration
+  const [auctionDuration, setAuctionDuration] = useState(0);
+  const getAuctionDuration = async () => {
+    try {
+      const result = await auctionContract.auctionDuration();
+      setAuctionDuration(result.toNumber());
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  useEffect(() => {
+    getAuctionDuration();
+  }, []);
+  console.log("auctionDuration:", auctionDuration);
   // 可以存在資料庫，Deafult 從資料庫抓，才不會重整就消失
   const [bidTaker, setBidTaker] = useState(null);
   const [soldPrice, setSoldPrice] = useState(null);
@@ -70,6 +101,8 @@ const ProductDetails = () => {
     if (typeof window !== "undefined") {
       // 确保代码在客户端执行
       const onBidTaken = async (bidTaker, price, event) => {
+        bidTaker = bidTaker.toString();
+        price = price.toNumber();
         console.log("Bid taken by", bidTaker, "for", price, "wei");
         console.log(event);
         setIsSold(true);
@@ -105,32 +138,6 @@ const ProductDetails = () => {
       };
     }
   }, []);
-  const getStartTime = async () => {
-    try {
-      const result = await auctionContract.auctionStartTime();
-      return result.toNumber();
-    } catch (err) {
-      console.error("Error fetching data from the smart contract:", err);
-    }
-  };
-  const getStartPrice = async () => {
-    try {
-      const result = await runeContract.startPrice();
-      console.log("startPrice:", result.toNumber());
-      return result.toNumber();
-    } catch (err) {
-      console.error("Error fetching data from the smart contract:", err);
-    }
-  };
-  const getAuctionDuration = async () => {
-    try {
-      const result = await auctionContract.auctionDuration();
-      console.log("auctionDuration:", result.toNumber());
-      return result.toNumber();
-    } catch (err) {
-      console.error("Error fetching data from the smart contract:", err);
-    }
-  };
 
   const [currentPrice, setCurrentPrice] = useState(0.001); // 默认状态
   const getCurrentPrice = async () => {
@@ -210,7 +217,7 @@ const ProductDetails = () => {
     fetchAuctionLive();
   });
 
-  console.log(auctionLive, isWhitelisted);
+  console.log("auctionLive:", auctionLive, isWhitelisted);
 
   const takeBid = async () => {
     fetchAuctionLive(); // 刷新 auctionLive 状态
@@ -227,15 +234,15 @@ const ProductDetails = () => {
         let hasGasEstimate;
         try {
           gasEstimate = await contract.estimateGas.takeBid({
-            value: ethers.utils.parseEther("0.001"),
+            value: ethers.utils.parseEther(currentPrice.toString()),
           }); // Assuming mint function requires address and quantity
           console.log(`Estimated gas: ${gasEstimate.toString()}`);
           hasGasEstimate = true;
         } catch (e) {
           console.error("Error estimating gas:", e);
           if (
-            e.message ===
-            'insufficient funds for intrinsic transaction cost [ See: https://links.ethers.org/v5-errors-INSUFFICIENT_FUNDS ] (error={"code":-32000,"message":"insufficient funds for gas * price + value"}, method="estimateGas", transaction={"from":"0xe8c954E7f2e060618d9734D438670246e0dBEB2E","to":"0xdDA7f85Bf98b64933C58F4D4Df9E3C78686e6071","value":{"type":"BigNumber","hex":"0x048c27395000"},"data":"0xd204c45e000000000000000000000000e8c954e7f2e060618d9734d438670246e0dbeb2e000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000076170692f61706900000000000000000000000000000000000000000000000000","accessList":null}, code=INSUFFICIENT_FUNDS, version=providers/5.7.2)'
+            e.message.toString().slice(0, 49) ===
+            "insufficient funds for intrinsic transaction cost"
           ) {
             displayMsg(
               0,
@@ -263,7 +270,14 @@ const ProductDetails = () => {
         } catch (e) {
           console.error("Error minting token:", e);
           // 如果在 estimateGas 中出現錯誤訊息，則不會進入到這裡，因此需要額外處理
-          hasGasEstimate && displayMsg(0, e.message);
+          if (
+            hasGasEstimate &&
+            e.message.toString().slice(0, 25) === "user rejected transaction"
+          ) {
+            displayMsg(0, "Please approve the transaction in your wallet."); // Display error message}
+          } else {
+            displayMsg(0, e.message);
+          }
         }
       }
     }
@@ -272,8 +286,6 @@ const ProductDetails = () => {
   const nftItem = {
     title: "RUNEROCK #" + nextMintId.toString(),
     image: "assets/images/bid/" + nextMintId.toString() + ".png",
-    startTime: 1713808800,
-    duration: 43200,
   };
 
   return (
@@ -288,14 +300,28 @@ const ProductDetails = () => {
                   className="tab-pane fade preview-item"
                   eventKey="today-item"
                 >
-                  <img
-                    src={
-                      isSold
-                        ? nftItem.image.slice(0, -4) + "sold.png"
-                        : nftItem.image
-                    }
-                    alt="today-item"
-                  />
+                  <div className="photo-frame">
+                    <img
+                      src="assets/images/bid/sold.jpg"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        display: isSold ? "block" : "none",
+                        position: "absolute",
+                        zIndex: 3,
+                        opacity: "0.9",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                      }}
+                      alt=""
+                    />
+                    <img
+                      src={nftItem.image}
+                      alt="today-item"
+                      className="rotate-img"
+                    />
+                  </div>
                 </Tab.Pane>
               </Tab.Content>
               <Nav className="nav thumb-images rmb-20">
@@ -345,7 +371,14 @@ const ProductDetails = () => {
               {isSold ? "Ended At" : auctionLive ? "Ends In" : "Starts In"}
               <br />
               <span className="price">
-                {isSold ? soldTime : auctionLive ? "代定" : "代定"}
+                {isSold ? (
+                  soldTime
+                ) : (
+                  <EventCountdown
+                    startTime={auctionStartTime * 1000} // Convert to milliseconds
+                    endTime={(auctionStartTime + auctionDuration) * 1000}
+                  />
+                )}
               </span>
             </div>
             {!isSold && auctionLive && (

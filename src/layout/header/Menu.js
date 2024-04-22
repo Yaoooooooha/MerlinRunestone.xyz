@@ -17,7 +17,7 @@ const SingleMenu = ({ singleMenu }) => {
         <Link href="/">Home</Link>
       </li>
       <li>
-        <Link href="/bid-page">Bid RUNEROCK</Link>
+        <Link href="/bid">Bid RUNEROCK</Link>
       </li>
       <li>
         <Link href="/bid-rule">Bid Rule</Link>
