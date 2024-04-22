@@ -43,59 +43,58 @@ const ProductDetails = () => {
     provider
   );
 
+  // 初次渲染時都要抓取下一個 mintId
+  const [nextMintId, setNextMintId] = useState(11);
+  const getNextMintId = async () => {
+    try {
+      const result = await runeContract.nextMintId();
+      setNextMintId(result.toNumber());
+      console.log("nextMintId:", result.toNumber());
+      return result.toNumber();
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  useEffect(() => {
+    getNextMintId();
+  }, []);
+  console.log(nextMintId);
+  // 可以存在資料庫，Deafult 從資料庫抓，才不會重整就消失
+  const [bidTaker, setBidTaker] = useState(null);
+  const [soldPrice, setSoldPrice] = useState(null);
+  const [soldTime, setSoldTime] = useState(null);
+  const [isSold, setIsSold] = useState(false);
+  const [startPrice, setStartPrice] = useState(null);
+  const minimumStartPrice = 0.001;
   useEffect(() => {
     if (typeof window !== "undefined") {
       // 确保代码在客户端执行
       const onBidTaken = async (bidTaker, price, event) => {
         console.log("Bid taken by", bidTaker, "for", price, "wei");
+        console.log(event);
+        setIsSold(true);
+        setBidTaker(bidTaker);
+        setSoldPrice(price);
+
         const now = Date.now();
         const date = new Date(now);
-        let nextStartTime = await getStartTime();
-        let nextMintId = await getNextMintId();
-        let startPrice = await getStartPrice();
-        let auctionDuration = await getAuctionDuration();
+        setSoldTime(
+          `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${
+            date.getUTCDate() +
+            " " +
+            date.getUTCHours() +
+            ":" +
+            (date.getUTCMinutes().toString().length === 1
+              ? "0" + date.getUTCMinutes()
+              : date.getUTCMinutes())
+          } UTC`
+        );
 
-        setItemList([
-          {
-            title: itemList[1].title,
-            image: itemList[1].image,
-            priceTitle: "Sold Price",
-            price: price,
-            ownerTitle: "Owned By",
-            owner: bidTaker,
-            remainTimeTitle: "Auction Ends At",
-            remainTime: `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${
-              date.getUTCDate() +
-              " " +
-              date.getUTCHours() +
-              ":" +
-              (date.getUTCMinutes().toString().length === 1
-                ? "0" + date.getUTCMinutes()
-                : date.getUTCMinutes())
-            } UTC`,
-            status: "Sold",
-          },
-          {
-            title: itemList[2].title,
-            image: itemList[2].image,
-            priceTitle: "Now Price",
-            price: startPrice,
-            startTime: nextStartTime,
-            remainTimeTitle: "Ends In",
-            remainTime: "代訂",
-            status: "In Progress",
-          },
-          {
-            title: "RUNEROCK #" + nextMintId.toString(),
-            image: "assets/images/bid/" + nextMintId.toString() + ".png",
-            priceTitle: "Minimum Start Price",
-            price: 0.001,
-            startTime: nextStartTime + auctionDuration,
-            remainTimeTitle: "Starts In",
-            remainTime: "代訂",
-            status: "Preparing",
-          },
-        ]);
+        if (price <= minimumStartPrice) {
+          setStartPrice(minimumStartPrice);
+        } else {
+          setStartPrice(price * 2);
+        }
       };
 
       auctionContract.on("BidTaken", onBidTaken);
@@ -109,15 +108,6 @@ const ProductDetails = () => {
   const getStartTime = async () => {
     try {
       const result = await auctionContract.auctionStartTime();
-      return result.toNumber();
-    } catch (err) {
-      console.error("Error fetching data from the smart contract:", err);
-    }
-  };
-  const getNextMintId = async () => {
-    try {
-      const result = await runeContract.nextMintId();
-      console.log("nextMintId:", result.toNumber());
       return result.toNumber();
     } catch (err) {
       console.error("Error fetching data from the smart contract:", err);
@@ -158,73 +148,6 @@ const ProductDetails = () => {
   useEffect(() => {
     fetchCurrentPrice();
   });
-
-  const [itemList, setItemList] = useState([
-    {
-      title: "",
-      image: "",
-      priceTitle: "Sold Price",
-      price: "",
-      ownerTitle: "Owned By",
-      owner: "",
-      remainTimeTitle: "Auction Ends At",
-      remainTime: "",
-      status: "Sold",
-    },
-    {
-      title: "RUNEROCK #11",
-      image: "assets/images/bid/11.png",
-      priceTitle: "Now Price",
-      price: currentPrice,
-      startTime: 1713808800,
-      remainTimeTitle: "Ends In",
-      remainTime: "代訂",
-      status: "In Progress",
-    },
-
-    {
-      title: "RUNEROCK #12",
-      image: "assets/images/bid/12.png",
-      priceTitle: "Minimum Start Price",
-      price: 0.001,
-      startTime: 1713895200,
-      remainTimeTitle: "Starts In",
-      remainTime: "代訂",
-      status: "Preparing",
-    },
-  ]);
-
-  const yesterdayItem = itemList[0];
-  const todayItem = itemList[1];
-  const tommorowItem = itemList[2];
-
-  const [selectedItem, setSelectedItem] = useState(todayItem);
-  const [auctionStatus, setAuctionStatus] = useState("Preparing"); // 默认状态
-  const selectHandler = (item) => {
-    if (item === "yesterday-item") {
-      setSelectedItem(yesterdayItem);
-    } else if (item === "today-item") {
-      setSelectedItem(todayItem);
-    } else if (item === "tommorow-item") {
-      setSelectedItem(tommorowItem);
-    }
-  };
-  // 用來處理 selectItem 的 auctionStatus
-  useEffect(() => {
-    const fetchAuctionStatus = async () => {
-      if (selectedItem.status === "Sold") {
-        setAuctionStatus(selectedItem.owner);
-      } else if (selectedItem.status === "Preparing") {
-        setAuctionStatus("Preparing");
-      } else {
-        // 异步检查拍卖是否进行中
-        const isLive = await checkAuctionIsLive();
-        setAuctionStatus(isLive ? "In Progress" : "Preparing");
-      }
-    };
-
-    fetchAuctionStatus();
-  }, [selectedItem]); // 当 selectedItem 更改时重新执行
 
   const checkIsPrivateSale = async () => {
     try {
@@ -346,6 +269,13 @@ const ProductDetails = () => {
     }
   };
 
+  const nftItem = {
+    title: "RUNEROCK #" + nextMintId.toString(),
+    image: "assets/images/bid/" + nextMintId.toString() + ".png",
+    startTime: 1713808800,
+    duration: 43200,
+  };
+
   return (
     <Layout header={1} singleMenu footer={1} dark>
       {/* Product Details Start */}
@@ -356,34 +286,20 @@ const ProductDetails = () => {
               <Tab.Content className="tab-content preview-images">
                 <Tab.Pane
                   className="tab-pane fade preview-item"
-                  eventKey="yesterday-tiem"
-                >
-                  <img src={selectedItem.image} alt="yesterday-tiem" />
-                </Tab.Pane>
-                <Tab.Pane
-                  className="tab-pane fade preview-item"
                   eventKey="today-item"
                 >
-                  <img src={selectedItem.image} alt="today-item" />
-                </Tab.Pane>
-                <Tab.Pane
-                  className="tab-pane fade preview-item"
-                  eventKey="tommorow-item"
-                >
-                  <img src={selectedItem.image} alt="tommorow-item" />
+                  <img
+                    src={
+                      isSold
+                        ? nftItem.image.slice(0, -4) + "sold.png"
+                        : nftItem.image
+                    }
+                    alt="today-item"
+                  />
                 </Tab.Pane>
               </Tab.Content>
               <Nav className="nav thumb-images rmb-20">
-                <Nav.Link
-                  as="a"
-                  href="#yesterday-tiem"
-                  eventKey="yesterday-tiem"
-                  className="thumb-item"
-                  onClick={() => selectHandler("yesterday-item")}
-                >
-                  Last Sold
-                </Nav.Link>
-                <Nav.Link
+                {/* <Nav.Link
                   as="a"
                   href="#today-item"
                   eventKey="today-item"
@@ -391,16 +307,7 @@ const ProductDetails = () => {
                   onClick={() => selectHandler("today-item")}
                 >
                   In Auction
-                </Nav.Link>
-                <Nav.Link
-                  as="a"
-                  href="#tommorow-item"
-                  eventKey="tommorow-item"
-                  className="thumb-item"
-                  onClick={() => selectHandler("tommorow-item")}
-                >
-                  Next Item
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
             </div>
           </Tab.Container>
@@ -408,26 +315,40 @@ const ProductDetails = () => {
         <div className="col-lg-6 bid-info">
           <div className="product-details-content wow fadeInRight delay-0-2s">
             <div className="section-title">
-              <h2>{selectedItem.title}</h2>
+              <h2>{nftItem.title}</h2>
             </div>
             <div className="ratting-price mb-15">
-              {selectedItem.priceTitle}
+              {isSold
+                ? "Sold Price"
+                : auctionLive
+                ? "Now Price"
+                : "Start Price"}
               <br />
-              <span className="price">{selectedItem.price} BTC</span>
+              <span className="price">
+                {isSold
+                  ? soldPrice
+                  : auctionLive
+                  ? parseFloat(currentPrice.toFixed(5))
+                  : startPrice}{" "}
+                BTC
+              </span>
             </div>
             <div className="ratting-price mb-15">
-              {selectedItem.status === "Sold"
-                ? selectedItem.ownerTitle
-                : "Auction Status"}
+              {isSold ? "Owned By" : "Auction Status"}
               <br />
-              <span className="price">{auctionStatus}</span>
+              <span className="price">
+                {" "}
+                {isSold ? bidTaker : auctionLive ? "In Progress" : "Preparing"}
+              </span>
             </div>
             <div className="ratting-price mb-15">
-              {selectedItem.remainTimeTitle}
+              {isSold ? "Ended At" : auctionLive ? "Ends In" : "Starts In"}
               <br />
-              <span className="price">1 hr</span>
+              <span className="price">
+                {isSold ? soldTime : auctionLive ? "代定" : "代定"}
+              </span>
             </div>
-            {selectedItem.status === "In Progress" && (
+            {!isSold && auctionLive && (
               <form action="#" className="add-to-cart pt-35">
                 {/* <div className="bid-input">
                   <input
@@ -468,13 +389,6 @@ const ProductDetails = () => {
                     }
                   />
                 </button>
-                {msg && (
-                  <div className="msg-popup" style={msgStyle}>
-                    {" "}
-                    {/* Display error message in a popup */}
-                    <p style={{ margin: "0", width: "100%" }}>{msg}</p>
-                  </div>
-                )}
               </form>
             )}
           </div>

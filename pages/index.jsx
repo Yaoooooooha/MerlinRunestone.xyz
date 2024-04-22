@@ -340,17 +340,9 @@ const IndexSingle = () => {
                   <p>
                     Enjoy minting privileges, giveaways, and bonus airdrops!
                   </p>
-                  <div
-                    legacyBehavior
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                        .querySelector("body")
-                        .classList.add("side-content-visible");
-                    }}
-                  >
+                  <div legacyBehavior>
                     <a className="read-more style-two">
-                      <span>JOIN NOW</span> <i className="fa fa-arrow-right" />
+                      <span>CLOSED...</span> <i className="fa fa-arrow-right" />
                     </a>
                   </div>
                 </div>
