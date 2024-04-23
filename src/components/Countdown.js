@@ -67,7 +67,7 @@ function EventCountdown({
     }
   }
 
-  return <div>{currentCountdown}</div>;
+  return <>{currentCountdown}</>;
 }
 
 export default EventCountdown;
