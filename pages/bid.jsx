@@ -180,7 +180,7 @@ const ProductDetails = () => {
     const refreshPrice = setInterval(() => {
       fetchCurrentPrice();
       console.log("Current price refreshed");
-    }, 90000); // 1.5 分钟刷新一次
+    }, 15000); // 15 秒刷新一次
     return () => clearInterval(refreshPrice);
   }, []);
 
@@ -243,7 +243,7 @@ const ProductDetails = () => {
   };
   useEffect(() => {
     fetchAuctionLive();
-  }, []);
+  });
 
   console.log("auctionLive:", auctionLive, isWhitelisted);
 
