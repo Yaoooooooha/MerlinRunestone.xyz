@@ -408,8 +408,8 @@ const ProductDetails = () => {
                   soldTime
                 ) : (
                   <EventCountdown
-                    startTime={auctionStartTime * 1000} // Convert to milliseconds
-                    endTime={(auctionStartTime + auctionDuration) * 1000}
+                    startTime={(auctionStartTime + 10) * 1000} // Convert to milliseconds
+                    endTime={(auctionStartTime + 10 + auctionDuration) * 1000}
                     setCountdownEnd={setCountdownEnd}
                     countdownEnd={countdownEnd}
                     auctionLive={auctionLive}
