@@ -158,32 +158,6 @@ const ProductDetails = () => {
     }
   }, []);
 
-  const [currentPrice, setCurrentPrice] = useState(0.001); // 默认状态
-  const getCurrentPrice = async () => {
-    try {
-      const result = await auctionContract.getCurrentPrice();
-      return result.toNumber(); // 返回当前价格
-    } catch (err) {
-      console.error("Error fetching data from the smart contract:", err);
-    }
-  };
-  const fetchCurrentPrice = async () => {
-    const price = await getCurrentPrice();
-    setCurrentPrice(price / 10 ** 18); // 返回当前价格
-  };
-  useEffect(() => {
-    fetchCurrentPrice();
-  });
-  // 每間隔一段時間就重新抓取一次 currentPrice
-  const [countdownEnd, setCountdownEnd] = useState(false);
-  useEffect(() => {
-    const refreshPrice = setInterval(() => {
-      fetchCurrentPrice();
-      console.log("Current price refreshed");
-    }, 15000); // 15 秒刷新一次
-    return () => clearInterval(refreshPrice);
-  }, []);
-
   const checkIsPrivateSale = async () => {
     try {
       const result = await auctionContract.isPrivateSale(); // 替換為你的函數名稱
@@ -241,9 +215,33 @@ const ProductDetails = () => {
     const isLive = await checkAuctionIsLive();
     setAuctionLive(isLive);
   };
+  const [currentPrice, setCurrentPrice] = useState(0.001); // 默认状态
+  const getCurrentPrice = async () => {
+    try {
+      const result = await auctionContract.getCurrentPrice();
+      return result.toNumber(); // 返回当前价格
+    } catch (err) {
+      console.error("Error fetching data from the smart contract:", err);
+    }
+  };
+  const fetchCurrentPrice = async () => {
+    const price = await getCurrentPrice();
+    setCurrentPrice(price / 10 ** 18); // 返回当前价格
+  };
   useEffect(() => {
+    fetchCurrentPrice();
     fetchAuctionLive();
   });
+  // 每間隔一段時間就重新抓取一次 currentPrice 跟 auctionLive 狀態
+  const [countdownEnd, setCountdownEnd] = useState(false);
+  useEffect(() => {
+    const refreshPrice = setInterval(() => {
+      fetchCurrentPrice();
+      fetchAuctionLive();
+      console.log("Current price and auction live status refreshed");
+    }, 15000); // 15 秒刷新一次
+    return () => clearInterval(refreshPrice);
+  }, []);
 
   console.log("auctionLive:", auctionLive, isWhitelisted);
 
