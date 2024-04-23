@@ -53,7 +53,7 @@ export default function ConnectWalletBtn() {
 
                 return (
                   <div style={{ display: "flex", gap: 12 }}>
-                    <button
+                    {/* <button
                       onClick={openChainModal}
                       className="connect-wallet-btn"
                       type="button"
@@ -79,7 +79,7 @@ export default function ConnectWalletBtn() {
                         </div>
                       )}
                       {chain.name}
-                    </button>
+                    </button> */}
 
                     <button
                       onClick={openAccountModal}

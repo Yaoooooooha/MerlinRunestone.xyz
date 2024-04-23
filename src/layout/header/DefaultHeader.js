@@ -42,16 +42,10 @@ const Header2 = ({ singleMenu, dark }) => {
 
                   <i className="fa fa-arrow-right" />
                 </Link> */}
-                <a className="theme-btn style-two me-4 mt-20 coming-soon">
+                <Link href={"/bid"} className="theme-btn style-two me-4 mt-20">
                   <p style={{ margin: 0 }}>GET RUNEROCK</p>
-                  <p
-                    className="coming-soon-p"
-                    style={{ margin: 0, display: "none" }}
-                  >
-                    COMING SOON
-                  </p>
                   <i className="fa fa-arrow-right" />
-                </a>
+                </Link>
               </a>
               {/* menu sidbar */}
               {/* <div className="menu-sidebar">

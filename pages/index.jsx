@@ -369,9 +369,9 @@ const IndexSingle = () => {
                       <span>BID NOW</span> <i className="fa fa-arrow-right" />
                     </a>
                   </Link> */}
-                  <a className="read-more style-two">
-                    <span>COMING SOON</span> <i className="fa fa-arrow-right" />
-                  </a>
+                  <Link href={"/bid"} className="read-more style-two">
+                    <span>GO BID !</span> <i className="fa fa-arrow-right" />
+                  </Link>
                 </div>
               </div>
             </div>

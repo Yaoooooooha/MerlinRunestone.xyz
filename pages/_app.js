@@ -88,7 +88,7 @@ export default function App({ Component, pageProps }) {
   const config = getDefaultConfig({
     appName: "MerlinERA",
     projectId: "dbe4b41c2ff694a2c782c8f9efc5347f",
-    chains: [merlinChain, merlinChainTestnet],
+    chains: [merlinChain],
     connectors,
     ssr: true, // If your dApp uses server side rendering (SSR)
   });

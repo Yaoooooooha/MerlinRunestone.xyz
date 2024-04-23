@@ -31,7 +31,7 @@ const ProductDetails = () => {
 
   const { address } = useAccount();
   const signer = useEthersSigner(); // `useSigner` hook from wagmi to get the connected signer
-  const merlinRPC = "https://testnet-rpc.merlinchain.io";
+  const merlinRPC = "https://rpc.merlinchain.io";
   const provider = new ethers.providers.JsonRpcProvider(merlinRPC);
   const auctionContract = new ethers.Contract(
     AUCTION_CONTRACT_ADDRESS,
@@ -311,6 +311,7 @@ const ProductDetails = () => {
 
   const nftItem = {
     title: "RUNEROCK #" + nextMintId.toString(),
+    titleSold: "RUNEROCK #" + (nextMintId - 1).toString(),
     image: "assets/images/bid/" + nextMintId.toString() + ".png",
     imageSold: "assets/images/bid/" + (nextMintId - 1).toString() + ".png",
   };
@@ -368,7 +369,7 @@ const ProductDetails = () => {
         <div className="col-lg-6 bid-info">
           <div className="product-details-content wow fadeInRight delay-0-2s">
             <div className="section-title">
-              <h2>{nftItem.title}</h2>
+              <h2>{isSold ? nftItem.titleSold : nftItem.title}</h2>
             </div>
             <div className="ratting-price mb-15">
               {isSold
