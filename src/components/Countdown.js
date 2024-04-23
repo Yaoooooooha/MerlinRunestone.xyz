@@ -16,7 +16,7 @@ function EventCountdown({ startTime, endTime, setCountdownEnd, auctionLive }) {
         countdownText = `${formatTime(timeLeft)}`;
       } else if (now > start && now <= end) {
         setCountdownEnd(true);
-        if (auctionLive) {
+        if (auctionLive || now - start > 50000) {
           // 活动进行中，显示结束倒计时
           const timeLeft = Math.floor((end - now) / 1000); // 秒
           countdownText = `${formatTime(timeLeft)}`;
