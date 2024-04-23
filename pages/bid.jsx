@@ -239,7 +239,7 @@ const ProductDetails = () => {
       fetchCurrentPrice();
       fetchAuctionLive();
       console.log("Current price and auction live status refreshed");
-    }, 5000); // 15 秒刷新一次
+    }, 5000); // 5 秒刷新一次
     return () => clearInterval(refreshPrice);
   }, []);
 
