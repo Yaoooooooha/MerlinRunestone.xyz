@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-function EventCountdown({ startTime, endTime, setCountdownEnd, countdownEnd }) {
+function EventCountdown({
+  startTime,
+  endTime,
+  setCountdownEnd,
+  countdownEnd,
+  auctionLive,
+}) {
   const [currentCountdown, setCurrentCountdown] = useState("");
 
   useEffect(() => {
@@ -18,9 +24,13 @@ function EventCountdown({ startTime, endTime, setCountdownEnd, countdownEnd }) {
         // 活动已结束，显示已结束
         setCountdownEnd(!countdownEnd);
       } else if (now > start && now <= end) {
-        // 活动进行中，显示结束倒计时
-        const timeLeft = Math.floor((end - now) / 1000); // 秒
-        countdownText = `${formatTime(timeLeft)}`;
+        if (auctionLive) {
+          // 活动进行中，显示结束倒计时
+          const timeLeft = Math.floor((end - now) / 1000); // 秒
+          countdownText = `${formatTime(timeLeft)}`;
+        } else {
+          countdownText = `${formatTime(0)}`;
+        }
       } else {
         // 活动已结束
         countdownText = "END";

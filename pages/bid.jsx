@@ -314,6 +314,7 @@ const ProductDetails = () => {
   const nftItem = {
     title: "RUNEROCK #" + nextMintId.toString(),
     image: "assets/images/bid/" + nextMintId.toString() + ".png",
+    imageSold: "assets/images/bid/" + (nextMintId - 1).toString() + ".png",
   };
 
   return (
@@ -345,7 +346,7 @@ const ProductDetails = () => {
                       alt=""
                     />
                     <img
-                      src={nftItem.image}
+                      src={isSold ? nftItem.imageSold : nftItem.image}
                       alt="today-item"
                       className="rotate-img"
                     />
@@ -396,7 +397,11 @@ const ProductDetails = () => {
               </span>
             </div>
             <div className="ratting-price mb-15">
-              {isSold ? "Ended At" : auctionLive ? "Ends In" : "Starts In"}
+              {isSold
+                ? "Ended At  "
+                : auctionLive
+                ? "Ends In  "
+                : "Starts In  "}
               <br />
               <span className="price">
                 {isSold ? (
@@ -407,11 +412,12 @@ const ProductDetails = () => {
                     endTime={(auctionStartTime + auctionDuration) * 1000}
                     setCountdownEnd={setCountdownEnd}
                     countdownEnd={countdownEnd}
+                    auctionLive={auctionLive}
                   />
                 )}
               </span>
             </div>
-            {!isSold && auctionLive && (
+            {!isSold && (countdownEnd || auctionLive) && (
               <form action="#" className="add-to-cart pt-35">
                 {/* <div className="bid-input">
                   <input
