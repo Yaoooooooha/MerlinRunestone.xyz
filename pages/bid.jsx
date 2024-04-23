@@ -243,7 +243,7 @@ const ProductDetails = () => {
   };
   useEffect(() => {
     fetchAuctionLive();
-  });
+  }, []);
 
   console.log("auctionLive:", auctionLive, isWhitelisted);
 

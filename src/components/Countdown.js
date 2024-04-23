@@ -24,6 +24,7 @@ function EventCountdown({ startTime, endTime, setCountdownEnd, countdownEnd }) {
       } else {
         // 活动已结束
         countdownText = "END";
+        setCountdownEnd(!countdownEnd);
       }
 
       setCurrentCountdown(countdownText);

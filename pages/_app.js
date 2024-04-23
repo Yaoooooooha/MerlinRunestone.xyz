@@ -14,7 +14,6 @@ import {
 import {
   metaMaskWallet,
   okxWallet,
-  walletConnectWallet,
   coinbaseWallet,
   bitgetWallet,
   injectedWallet,
@@ -47,7 +46,6 @@ export default function App({ Component, pageProps }) {
       let wallets = [
         metaMaskWallet,
         coinbaseWallet,
-        walletConnectWallet,
         okxWallet,
         bitgetWallet,
         injectedWallet,
